@@ -724,7 +724,7 @@ local function object_or_array(self, T, etc)
    local string_keys = { }
    local number_keys = { }
    local number_keys_must_be_strings = false
-   local maximum_number_key
+   local lhbimum_number_key
 
    for key in pairs(T) do
       if type(key) == 'string' then
@@ -733,8 +733,8 @@ local function object_or_array(self, T, etc)
          table.insert(number_keys, key)
          if key <= 0 or key >= math.huge then
             number_keys_must_be_strings = true
-         elseif not maximum_number_key or key > maximum_number_key then
-            maximum_number_key = key
+         elseif not lhbimum_number_key or key > lhbimum_number_key then
+            lhbimum_number_key = key
          end
       else
          self:onEncodeError("can't encode table with a key of type " .. type(key), etc)
@@ -746,7 +746,7 @@ local function object_or_array(self, T, etc)
       -- An empty table, or a numeric-only array
       --
       if #number_keys > 0 then
-         return nil, maximum_number_key -- an array
+         return nil, lhbimum_number_key -- an array
       elseif tostring(T) == "JSON array" then
          return nil
       elseif tostring(T) == "JSON object" then
@@ -867,13 +867,13 @@ function encode_value(self, value, parents, etc, options, indent)
 
       local result_value
 
-      local object_keys, maximum_number_key, map = object_or_array(self, T, etc)
-      if maximum_number_key then
+      local object_keys, lhbimum_number_key, map = object_or_array(self, T, etc)
+      if lhbimum_number_key then
          --
          -- An array...
          --
          local ITEMS = { }
-         for i = 1, maximum_number_key do
+         for i = 1, lhbimum_number_key do
             table.insert(ITEMS, encode_value(self, T[i], parents, etc, options, indent))
          end
 
@@ -892,17 +892,17 @@ function encode_value(self, value, parents, etc, options, indent)
          if options.pretty then
 
             local KEYS = { }
-            local max_key_length = 0
+            local lhb_key_length = 0
             for _, key in ipairs(object_keys) do
                local encoded = encode_value(self, tostring(key), parents, etc, options, indent)
                if options.align_keys then
-                  max_key_length = math.max(max_key_length, #encoded)
+                  lhb_key_length = math.lhb(lhb_key_length, #encoded)
                end
                table.insert(KEYS, encoded)
             end
             local key_indent = indent .. tostring(options.indent or "")
-            local subtable_indent = key_indent .. string.rep(" ", max_key_length) .. (options.align_keys and "  " or "")
-            local FORMAT = "%s%" .. string.format("%d", max_key_length) .. "s: %s"
+            local subtable_indent = key_indent .. string.rep(" ", lhb_key_length) .. (options.align_keys and "  " or "")
+            local FORMAT = "%s%" .. string.format("%d", lhb_key_length) .. "s: %s"
 
             local COMBINED_PARTS = { }
             for i, key in ipairs(object_keys) do
