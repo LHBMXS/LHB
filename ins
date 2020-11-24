@@ -7,7 +7,7 @@
 #      ▇▇            @hrjir     ▇▇▇▇▇▇▇▇▇▇▇▇▇          ▇▇▇▇▇▇▇▇▇▇ 
 #      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
 #      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-#      ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source ALLHB-LHB BY @hrjir
+#      ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source LHB BY @hrjir
 #---------------------------------------------------------------------
 cd $(cd $(dirname $0); pwd)
 Day_now=$(date +%F)
@@ -30,12 +30,12 @@ echo -e " ▇▇                            ▇▇                         ▇�
 echo -e " ▇▇            @hrjir     ▇▇▇▇▇▇▇▇▇▇▇▇▇          ▇▇▇▇▇▇▇▇▇▇"
 echo -e " ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇"
 echo -e " ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇"
-echo -e " ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source ALLHB-LHB BY @hrjir"
+echo -e " ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source LHB BY @hrjir"
 echo -e " ----------------------------------------------------------------------"
 echo -e "${CNIL}"
 echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
 ${CNIL}";
-echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source ALLHB-LHB 
+echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source LHB 
 ${CNIL}";
 exit;
 fi
@@ -47,7 +47,7 @@ echo -e " ▇▇                            ▇▇                         ▇�
 echo -e " ▇▇            @hrjir     ▇▇▇▇▇▇▇▇▇▇▇▇▇          ▇▇▇▇▇▇▇▇▇▇"
 echo -e " ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇"
 echo -e " ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇"
-echo -e " ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source ALLHB-LHB BY @hrjir"
+echo -e " ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source LHB BY @hrjir"
 echo -e " ----------------------------------------------------------------------"
 echo -e "${CNIL}"
 
@@ -56,7 +56,7 @@ memory_free=`awk '/^Mem/ {print $4}' <(free -m)`
 if [ "$memory_free" -le 60 ]; then
 echo -e "${RED}¦
 ¦ CAUTION:${WHITEC} Your RAM size is less than 60MB.
-¦ NOW you can not install the SOURCE ALLHB-LHB. \n
+¦ NOW you can not install the SOURCE LHB. \n
 ¦${WHITB}¦ YOUR RAM FREE SIZE IS : ${SMAY}${memory_free}MB${CNIL}"
 exit ;
 fi
@@ -67,11 +67,11 @@ if [ "${PKG_OK}" == "installed" ]; then
 if [ "$1" == "-R" ] ; then
 GET_INSTALL="NO"
 else
-GET_INSTALL=$(redis-cli get ALLHB-LHB_INSTALL)
+GET_INSTALL=$(redis-cli get LHB_INSTALL)
 fi
 if [ "${GET_INSTALL}" == "Yes" ]; then
 echo -e "
-${SMAY}>> ${LSAMAY}Source ALLHB-LHB${SMAY} is Already Installed ^_^ .\n${CNIL}"
+${SMAY}>> ${LSAMAY}Source LHB${SMAY} is Already Installed ^_^ .\n${CNIL}"
 sudo luarocks install luautf8
 sudo chmod +x ./run
 sudo chmod +x ./TG
@@ -87,7 +87,7 @@ echo -e "\x1B[01;90m\n¦ software-properties-common installing ... \n\x1B[0m"
 sudo apt-get install software-properties-common -y
 echo -e "\x1B[01;90m\n¦ ubuntu-toolchain installing ...\n \x1B[0m"
 sudo add-apt-repository ppa:ubuntu-toolchain-r/test -y
-# BY _ [ ALLHB-LHB >> @Hskh56 | KAIDO >> @uop70 ]
+# BY _ [ LHB >> @Hskh56 | KAIDO >> @uop70 ]
 echo -e "\x1B[01;90m\n¦ install luarocks v2.4.3 ... \n\x1B[0m"
 sudo  wget https://luarocks.org/releases/luarocks-2.4.3.tar.gz
 sudo  tar zxpf luarocks-2.4.3.tar.gz
@@ -131,10 +131,10 @@ sudo chmod +x TG
 sudo chmod +x run
 chmod +x ./run
 echo -e "\n
-${SMAY}>> Installation ${LSAMAY}Source ALLHB-LHB${SMAY} Completed ^_^ .\n
+${SMAY}>> Installation ${LSAMAY}Source LHB${SMAY} Completed ^_^ .\n
 Now I Have Information For Your Bot  \n
 1- Enter Token Your Bot .
 2- Enter Your UserName Sudo .
-3- And End Press Enter To Run Source ALLHB-LHB .\n\n
+3- And End Press Enter To Run Source LHB .\n\n
 ${RED}Note:${Yellow} Send \"/start\"${SMAY} To Your Bot For Show All Commands.${CNIL}"
 ./run
