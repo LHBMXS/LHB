@@ -1,12 +1,12 @@
 #!/usr/bin/env bash 
 
-#      ▇▇                            ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇ 
-#      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇                                   
-#      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-#      ▇▇            @hrjir     ▇▇▇▇▇▇▇▇▇▇▇▇▇          ▇▇▇▇▇▇▇▇▇▇ 
-#      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-#      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-#      ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source LHB BY @hrjir
+
+#      ▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
+#      ▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
+#      ▇▇          ▇ @AST0RH   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+#      ▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @AST0RH
+#      ▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @AST0RH  ▇▄                 ▇▇                 ▇▇
+#      ▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source lhb BY @AST0RH
 #---------------------------------------------------------------------
 cd $(cd $(dirname $0); pwd)
  
@@ -22,17 +22,16 @@ Version=`lsb_release -rs | cut -f1 -d"."`
 
 if [ "$Version" == "18" ];then
 echo -e "${GREEN}
-      ▇▇                            ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇ 
-      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇                                   
-      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-      ▇▇            @hrjir     ▇▇▇▇▇▇▇▇▇▇▇▇▇          ▇▇▇▇▇▇▇▇▇▇ 
-      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-      ▇▇                            ▇▇                         ▇▇          ▇▇                 ▇▇ 
-      ▇▇▄▄▄▄▄▄           ▇▇                         ▇▇          ▇▇▇▇▇▇▇▇▇▇   ¦ Source LHB BY @hrjir
+▇▇▇                                       ▇▇▇               ▄▇▇▇▇▇▄                 ▇▇                                    ▇▇                
+▇▇        ▇                        ▇       ▇▇             ▄▇                ▇▄                        ▇▇                  ▇▇
+▇▇          ▇ @AST0RH   ▇         ▇▇            ▄▇▄▄▄▄▄▇▄                               ▇▇ ▇▇
+▇▇             ▇             ▇             ▇▇        ▄▇                            ▇▄                          ▇▇ ▇▇ ¦ Dev : @AST0RH
+▇▇                ▇       ▇                ▇▇      ▄▇ ¦ Dev : @AST0RH  ▇▄                 ▇▇                 ▇▇
+▇▇                   ▇▇                    ▇▇     ▄▇                                    ▇▄      ▇▇                                  ▇▇¦ Source lhb BY @AST0RH
 ----------------------------------------------------------------------${CNIL}"
 echo -e "${RED}| للاسف لايمكنك تنصيب السورس ع نظام اوبنتو {${Version}} يجب ان يكون على اصدار  اقل مثلا  ${SMAY}14 او 16
 ${CNIL}";
-echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source LHB 
+echo -e "${RED}| Sorry Canot install Source on Ubuntu {${Version}} Please install system To Ubuntu ${SMAY}14 or 16 ${RED} For Run The Source lhb 
 ${CNIL}";
 exit;
 fi
@@ -42,7 +41,7 @@ if [ ! -f "./TG" ]; then
 echo -e "${RED}
 ¦
 ¦ CAUTION:${WHITB} Your Not Dwonload TG .
-¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source LHB${CNIL} . \n
+¦ NOW I Run File ${Yellow}./run${WHITB} To install ${SMAY}Source lhb${CNIL} . \n
 \n\n"
 chmod +x ./ins
 ./ins
@@ -71,9 +70,10 @@ sudo rm -fr ../.telegram-cli
 done
 else
 
-if ! screen -list | grep -q "LHB"; then
-screen -S LHB ./run R
+if ! screen -list | grep -q "lhb"; then
+screen -S lhb ./run R
 fi
-screen -S LHB -X kill
-screen -S LHB ./run R
+screen -S lhb -X kill
+screen -S lhb ./run R
 fi
+
