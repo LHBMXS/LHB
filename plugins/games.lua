@@ -1149,12 +1149,6 @@ redis:del(lhb..':Set_Amthlh:'..msg.chat_id_)
 return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
 end
 
-if msg.text == redis:get(lhb..':Set_Hzorh:'..msg.chat_id_) then -- // حزوره
-redis:incrby(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lhb..':Set_Hzorh:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*  🎁  احسنت اجابتك صحيحه   \n*   \n')
-end
-
 if msg.text == redis:get(lhb..':Set_trkib:'..msg.chat_id_) then -- // تركيب
 redis:incrby(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
 redis:del(lhb..':Set_trkib:'..msg.chat_id_)
@@ -1166,19 +1160,13 @@ redis:del(lhb..':Set_ang:'..msg.chat_id_)
 return sendMsg(msg.chat_id_,msg.id_,'*• أحسنت جبتها صح كفو عليك ☺   \n*   \n')
 end
 
-if msg.text == redis:get(lhb..':Set_trkib:'..msg.chat_id_) then -- // تركيب
-redis:incrby(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
-redis:del(lhb..':Set_trkib:'..msg.chat_id_)
-return sendMsg(msg.chat_id_,msg.id_,'*• أحسنت ركبتها صح   \n*   \n')
-end
-
 if msg.text == redis:get(lhb..':Set_ria:'..msg.chat_id_) then -- // رياضيات
 redis:incrby(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
 redis:del(lhb..':Set_ria:'..msg.chat_id_)
 return sendMsg(msg.chat_id_,msg.id_,'*• أحسنت حليت المسائله الصحيحه   \n*   \n')
 end
 
-if msg.text == redis:get(lhb..':Set_fkk:'..msg.chat_id_) then -- // حزوره
+if msg.text == redis:get(lhb..':Set_fkk:'..msg.chat_id_) then -- // تفكيك
 redis:incrby(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_,1)  
 redis:del(lhb..':Set_fkk:'..msg.chat_id_)
 return sendMsg(msg.chat_id_,msg.id_,'*• أحسنت فككتها صـح   \n*   \n')
