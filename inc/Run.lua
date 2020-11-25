@@ -287,7 +287,7 @@ elseif msg.sender_user_id_ == our_id then
 msg.Rank = 8
 else
 msg.TheRank = 'فقط عضو 🙍🏼‍♂️'
-msg.Rank = 11
+msg.Rank = 9
 end
 
 if msg.Rank == 1 then
