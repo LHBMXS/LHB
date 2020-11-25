@@ -1932,7 +1932,7 @@ end
 
 if (MsgText[1] == 'تحديث السورس' or MsgText[1] == 'تحديث السورس 🔂') then
 if not msg.SudoBase then return "♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local GetVerison = https.request('https://github.com/LHBMXS/LHB.github.io/GetVersion.txt') or 0
+local GetVerison = https.request('https://github.com/LHBMXS/lhb.github.io/GetVersion.txt') or 0
 if GetVerison > version then
 UpdateSourceStart = true
 sendMsg(msg.chat_id_,msg.id_,'🔛*╿* يوجد تحديث جديد الان \n📡*╽* جاري تنزيل وتثبيت التحديث  ...')
@@ -1997,8 +1997,8 @@ end
 if (MsgText[1]== "ايدي" or MsgText[1]=="ايديي🆔") and msg.type == "pv" then return  "\n👨🏻‍💻 | اهلن عزيزي المطور ايديك هوه ⏬\n\n🧟‍♂│"..msg.sender_user_id_.."\n"  end
 
 if MsgText[1]== "قناة السورس 📡" and msg.type == "pv" then
-local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/hrjir"}}}
-send_key(msg.sender_user_id_,'  [⚜│قناة سورس : اللـهـب](t.me/hrjir)',nil,inline,msg.id_)
+local inline = {{{text="⚜│قنآهہ‏‏ آلسـورس ضـغـط هـنـآ ",url="t.me/ASTORHBOTS"}}}
+send_key(msg.sender_user_id_,'  [⚜│قناة سورس : اللـهـب](t.me/ASTORHBOTS)',nil,inline,msg.id_)
 return false
 end
 
@@ -2468,7 +2468,7 @@ return [[
 ●ـ▬ـ▬ஜ۩۞۩ஜ▬ـ▬ـ●
 👋│اهلا بك في سورس اللـهـب 😍
 ●ـ▬ـ▬ஜ۩۞۩ஜ▬ـ▬ـ●
-📡╿[قناة السورس](t.me/hrjir)
+📡╿[قناة السورس](t.me/ASTORHBOTS)
 🤖│[بوت تواصل](t.me/TWSLASTBOT)
 👨🏻‍✈️╽[مطور السـورس](t.me/AST0RH)
 ●ـ▬ــ▬ஜ۩۞۩ஜ▬ـ▬ـ●
@@ -4265,7 +4265,7 @@ elseif Text== "محمد" then return sendMsg(msg.chat_id_,msg.id_,"[مالـك �
 elseif Text== "اليافعي" then return sendMsg(msg.chat_id_,msg.id_,"[ مطور سورس اللـهـب 😍](t.me/AST0RH")
 elseif Text== "تمام" then return sendMsg(msg.chat_id_,msg.id_,"دومك بخير حياتي 😘")
 elseif Text== "صاكه"  then return sendMsg(msg.chat_id_,msg.id_,"اووويلي يابه 😍❤️ دزلي صورتهه 🐸💔")
-elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بكلبك وتلكاني 😍😍❤️")
+elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بقلبكـ وتلكاني 😍😍❤️")
 elseif Text== "منورين"  then return sendMsg(msg.chat_id_,msg.id_,"من نورك عمري ❤️🌺")
 elseif Text== "هاي"  then return sendMsg(msg.chat_id_,msg.id_,"هايات عمري 😍🍷")
 elseif Text== "🙊"  then return sendMsg(msg.chat_id_,msg.id_,"فديت الخجول 🙊 😍")
@@ -4336,7 +4336,7 @@ return sendMsg(msg.chat_id_,msg.id_,"طرطاا طرطاا طرطاا 😂👌")
 elseif Text== "موجود" then return sendMsg(msg.chat_id_,msg.id_,"تفضل عزيزي 🌝🌸")
 elseif Text== "اكلك" then return sendMsg(msg.chat_id_,msg.id_,".قول حياتي 😚🌿")
 elseif Text== "فدوه" or Text=="فدوة" or Text=="فطوه" or Text=="فطوة" then  
-return sendMsg(msg.chat_id_,msg.id_,"لكلبك/ج 😍❤️")
+return sendMsg(msg.chat_id_,msg.id_,"لقلبكـ/ج 😍❤️")
 elseif Text== "دي"  or Text== "ديي" then return sendMsg(msg.chat_id_,msg.id_,"امشيك بيها 😉👋🏻")
 elseif Text== "اشكرك" then return sendMsg(msg.chat_id_,msg.id_,"بخدمتك/ج حبي ❤")
 elseif Text== "😉"  then return sendMsg(msg.chat_id_,msg.id_,"😻🙈")
@@ -4357,7 +4357,7 @@ elseif Text== "تنزيل جلب"  then return sendMsg(msg.chat_id_,msg.id_,"�
 elseif Text== "تنزيل زاحف"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم تنزيل المتهم زاحف بنجاح✔️\n🛠╽تمت ازالته من قائمه الزواحف😹\n✓️")
 elseif Text== "رفع صخل"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم رفع المتهم صخل 😹بنجاح✔️\n🛠╽الان اصبح صخل القروب 🐐\n✓️")
 elseif Text== "تنزيل صخل"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم تنزيل المتهم صخل😹بنجاح✔️\n🛠╽تمت ٳزالته من قائمة الصخوله🐐\n✓️")
-elseif Text== "رفع بقلبي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم رفع العضو داخل كلبك✔️\n🛠╽تمت ترقيته بنجاح 😻??👋🏻\n✓️")
+elseif Text== "رفع بقلبي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم رفع العضو داخل قلبكـ✔️\n🛠╽تمت ترقيته بنجاح 😻??👋🏻\n✓️")
 elseif Text== "تنزيل من قلبي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم تنزيل من داخل قلبك✔️\n🛠╽تمت ازالته من قائمه القلوب 😹💔\n✓️")
 elseif Text== "رفع تاج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهـلا عزيزي\n🎫│تم رفع صديقك تـ👑ـاج بنجاح ✔️ \n🛠╽اصبح خط احمر ❗️ \n✓️")
 elseif Text== "تنزيل تاج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهـلا عزيزي\n🎫│تم تنزيل العضو المهتلف\n🛠╽من قائمة ألتـ👑ـاج بنجاح ✔️😹💔\n✓️")
@@ -4382,7 +4382,7 @@ return sendMsg(msg.chat_id_,msg.id_,[[
 ♦️│لتتندم فڪر قبل ڪلشي  
 🚸│[اضغط هنا لـحـذف الـحـسـاب](https://telegram.org/deactivate)
 👨🏽‍⚖️│بالتـوفيـق عزيزي ...
-🎁╽[اضغط هنا لديك مفاجئه](https://t.me/hrjir)
+🎁╽[اضغط هنا لديك مفاجئه](https://t.me/ASTORHBOTS)
 ]] )
 --=====================================
 elseif Text== "انجب" or Text== "نجب" or Text=="جب" then
