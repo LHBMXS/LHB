@@ -4285,17 +4285,17 @@ return sendMsg(msg.chat_id_,msg.id_,dr[math.random(#dr)])
 elseif not msg.SudoUser and Text==" بوت" or Text == "بوت" then
 return sendMsg(msg.chat_id_,msg.id_,nnn[math.random(#nnn)])
 elseif not msg.SudoUser and Text== "أنا" or Text== "اني" or Text== "انا" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ant)]) 
+return sendMsg(msg.chat_id_,msg.id_,ant[math.random(#ant)]) 
 elseif not msg.SudoUser and Text== "سلام" or Text== "السلام عليكم" or Text== "سلام عليكم" or Text== "سلامن عليكم" or Text== "السلامن عليكم" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#slam)])
+return sendMsg(msg.chat_id_,msg.id_,slam[math.random(#slam)])
 elseif not msg.SudoUser and Text== "حلوو" or Text== "حلو" or Text== "حلووو" or Text== "حلوه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#hlo)])
+return sendMsg(msg.chat_id_,msg.id_,hlo[math.random(#hlo)])
 elseif not msg.SudoUser and Text == "ههههههههههههههههههههههههههه" or Text == "هههههههههههههههههههههههههههههههههههههههههههههههه" or Text == "ههههههههه" or Text == "هههههههه" or Text == "هههههه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ahahaha)])
+return sendMsg(msg.chat_id_,msg.id_,ahahaha[math.random(#ahahaha)])
 elseif not msg.SudoUser and Text == "هههههههههههه" or Text == "ههههههههه" or Text == "ههههههههههههه" or Text == "هههههههه" or Text == "ههههههههههههههههههه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#hahah)])
+return sendMsg(msg.chat_id_,msg.id_,hahah[math.random(#hahah)])
 elseif not msg.SudoUser and Text == "😂" or Text == "😂😂" or Text == "😂😂😂" or Text == "😂😂😂😂" or Text == "😄" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ahahah)])
+return sendMsg(msg.chat_id_,msg.id_,ahahah[math.random(#ahahah)])
 elseif msg.SudoUser and Text== "احبك" then
 return sendMsg(msg.chat_id_,msg.id_,"اموت عليك حياتي  😍❤️")
 elseif msg.SudoUser and Text== "تحبني" or Text=="حبك" then 
@@ -4414,7 +4414,7 @@ elseif Text== "تنزيل صخل"  then return sendMsg(msg.chat_id_,msg.id_,"�
 elseif Text== "رفع بقلبي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم رفع العضو داخل قلبكـ✔️\n🛠╽تمت ترقيته بنجاح 😻??👋🏻\n✓️")
 elseif Text== "تنزيل من قلبي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم تنزيل من داخل قلبك✔️\n🛠╽تمت ازالته من قائمه القلوب 😹💔\n✓️")
 elseif Text== "رفع تاج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهـلا عزيزي\n🎫│تم رفع صديقك تـ👑ـاج بنجاح ✔️ \n🛠╽اصبح خط احمر ❗️ \n✓️")
-elseif Text== "تنزيل تاج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهـلا عزيزي\n🎫│تم تنزيل العضو المهتلف\n🛠╽من قائمة ألتـ👑ـاج بنجاح ✔️😹💔\n✓️")
+elseif Text== "تنزيل تاج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋??‍♂╿اهـلا عزيزي\n🎫│تم تنزيل العضو المهتلف\n🛠╽من قائمة ألتـ👑ـاج بنجاح ✔️😹💔\n✓️")
 elseif Text== "رفع مرتي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم رفع العضو مرتك بنجاح✔️\nالآن يمكنكم أخذ راحتكم🤤😉\n✓️")
 elseif Text== "تنزيل مرتي"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم تنزيل الجكمه مرتك بنجاح✔️\nالآن انتم مفترقان☹️💔\n✓️")
 elseif Text== "زواج"  then return sendMsg(msg.chat_id_,msg.id_,"🙋🏻‍♂╿اهــلا عزيزي\n🎫│تم زواجكم الاثنين بنجاح✔️\n🛠╽الآن يمكنكم أخذ راحتكم🤤😉\n✓️")
