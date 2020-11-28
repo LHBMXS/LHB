@@ -4184,7 +4184,7 @@ local lovm = {
 "اذا كتلك/ج احبك/ج شراح تستفاد/ين 😕❤️",
 "ولي ماحبك/ج 🙊💔",
 }
-local ahahaha = {
+local haha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4195,7 +4195,7 @@ local ahahaha = {
 "عمري يالي يضحكون يا ناس 🤭",
 "ابتليت بحب ضحكتك وعيُونك الحلوة 🙊💗",
 }
-local hahah = {
+local hahaha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4205,7 +4205,7 @@ local hahah = {
 "لا تضحك مجامله 🧐",
 "عمري يالي يضحكون يا ناس 🤭",
 }
-local ahahah = {
+local hahahaha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4291,11 +4291,11 @@ return sendMsg(msg.chat_id_,msg.id_,slam[math.random(#slam)])
 elseif not msg.SudoUser and Text== "حلوو" or Text== "حلو" or Text== "حلووو" or Text== "حلوه" then
 return sendMsg(msg.chat_id_,msg.id_,hlo[math.random(#hlo)])
 elseif not msg.SudoUser and Text == "ههههههههههههههههههههههههههه" or Text == "هههههههههههههههههههههههههههههههههههههههههههههههه" or Text == "ههههههههه" or Text == "هههههههه" or Text == "هههههه" then
-return sendMsg(msg.chat_id_,msg.id_,ahahaha[math.random(#ahahaha)])
+return sendMsg(msg.chat_id_,msg.id_,haha[math.random(#haha)])
 elseif not msg.SudoUser and Text == "هههههههههههه" or Text == "ههههههههه" or Text == "ههههههههههههه" or Text == "هههههههه" or Text == "ههههههههههههههههههه" then
-return sendMsg(msg.chat_id_,msg.id_,hahah[math.random(#hahah)])
+return sendMsg(msg.chat_id_,msg.id_,hahaha[math.random(#hahaha)])
 elseif not msg.SudoUser and Text == "😂" or Text == "😂😂" or Text == "😂😂😂" or Text == "😂😂😂😂" or Text == "😄" then
-return sendMsg(msg.chat_id_,msg.id_,ahahah[math.random(#ahahah)])
+return sendMsg(msg.chat_id_,msg.id_,hahahaha[math.random(#hahahaha)])
 elseif msg.SudoUser and Text== "احبك" then
 return sendMsg(msg.chat_id_,msg.id_,"اموت عليك حياتي  😍❤️")
 elseif msg.SudoUser and Text== "تحبني" or Text=="حبك" then 
