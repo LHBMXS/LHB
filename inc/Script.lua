@@ -4148,18 +4148,18 @@ local sss = {
 "انا بالنسبة الي دايخ شوف بقية الاعضااء 😂🖕",
 }
 local dr = {
-"\nالله وياك والتكسي ع حساب المدير😂😂",
-"\nلاتطول الغيبة🌝💋",
-"\nبدري وين🙄",
-"\nمنو زعلك حتى تروح😥",
-"\nسلملي ع الجيران😂",
-"\nتعال وين رايح عندي سالفه معك🐣",
-"\nوين رايح خلينا متونسين🙁💔",
-"\nالله وياك يروحي😔💔",
-"\nانقلع😂",
-"\nراحل ورحل وفي رجعته مافي امل😂😥",
-"\nيلا اذلف😆",
-"\nوين رايح ",
+"الله وياك والتكسي ع حساب المدير😂😂",
+"لاتطول الغيبة🌝💋",
+"بدري وين🙄",
+"منو زعلك حتى تروح😥",
+"سلملي ع الجيران😂",
+"تعال وين رايح عندي سالفه معك",
+"وين رايح خلينا متونسين🙁💔",
+"الله وياك يروحي😔💔",
+"انقلع😂",
+"راحل ورحل وفي رجعته مافي امل😂😥",
+"يلا اذلف😆",
+"وين رايح",
 }
 local slam = {
 "وْعـلُـيَــكِـمٌ الُـــسِــــلُامٌ ❥",
@@ -4184,7 +4184,7 @@ local lovm = {
 "اذا كتلك/ج احبك/ج شراح تستفاد/ين 😕❤️",
 "ولي ماحبك/ج 🙊💔",
 }
-local ahahaha = {
+local ha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4195,7 +4195,7 @@ local ahahaha = {
 "عمري يالي يضحكون يا ناس 🤭",
 "ابتليت بحب ضحكتك وعيُونك الحلوة 🙊💗",
 }
-local hahah = {
+local haha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4205,7 +4205,7 @@ local hahah = {
 "لا تضحك مجامله 🧐",
 "عمري يالي يضحكون يا ناس 🤭",
 }
-local ahahah = {
+local hahaha = {
 "دُۈۈۈمٌ يَـــآرَبّ",
 "دوَوّم يــــ غٓـاليَ ــــا",
 "عَسَـــ دُوَوّوِوُمْ ـــآھ",
@@ -4215,6 +4215,7 @@ local ahahah = {
 "لا تضحك مجامله 🧐",
 "عمري يالي يضحكون يا ناس 🤭",
 "ابتليت بحب ضحكتك وعيُونك الحلوة 🙊💗",
+}
 local hlo = {
 "مو بحلاتكـ🤭",
 "انت الاحلى 🌚❤️",
@@ -4277,24 +4278,24 @@ elseif msg.SudoUser and Text=="هلو" then
 return sendMsg(msg.chat_id_,msg.id_,sh[math.random(#sh)])
 elseif not msg.SudoUser and Text=="هلو" then 
 return sendMsg(msg.chat_id_,msg.id_,ns[math.random(#ns)])
-elseif not msg.SudoUser and Text== "شلونكم" or Text== "شلونك" or Text== "شونك" or Text== "شونكم" or Text== "شلونكم" then
+elseif not msg.SudoUser and Text== "شلونكم" or Text== "شلونك" or Text== "شونك" or Text== "شونكم" or Text=="شلونكم" then
 return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#sss)])
-elseif not msg.SudoUser and Text==" باي" or Text == "باي" then
+elseif not msg.SudoUser and Text== " باي" or Text=="باي" then
 return sendMsg(msg.chat_id_,msg.id_,dr[math.random(#dr)])
-elseif not msg.SudoUser and Text==" بوت" or Text == "بوت" then
+elseif not msg.SudoUser and Text==" بوت" or Text=="بوت" then
 return sendMsg(msg.chat_id_,msg.id_,nnn[math.random(#nnn)])
-elseif not msg.SudoUser and Text== "أنا" or Text== "اني" or Text== "انا"then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ant)]) 
-elseif not msg.SudoUser and Text== "سلام" or Text== "السلام عليكم" or Text== "سلام عليكم" or Text== "سلامن عليكم" or Text== "السلامن عليكم" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#slam)])
-elseif not msg.SudoUser and Text== "حلوو" or Text== "حلو" or Text== "حلووو" or Text== "حلوه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#hlo)])
-elseif not msg.SudoUser and Text == "ههههههههههههههههههههههههههه" or Text == "هههههههههههههههههههههههههههههههههههههههههههههههه" or Text == "ههههههههه" or Text == "هههههههه" or Text == "هههههه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ahahaha)])
-elseif not msg.SudoUser and Text == "هههههههههههه" or Text == "ههههههههه" or Text == "ههههههههههههه" or Text == "هههههههه" or Text == "ههههههههههههههههههه" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#hahah)])
-elseif not msg.SudoUser and Text == "😂" or Text == "😂😂" or Text == "😂😂😂" or Text == "😂😂😂😂" or Text == "😄" then
-return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#ahahah)])
+elseif not msg.SudoUser and Text== "أنا" or Text== "اني" or Text=="انا" then
+return sendMsg(msg.chat_id_,msg.id_,ant[math.random(#ant)]) 
+elseif not msg.SudoUser and Text== "سلام" or Text== "السلام عليكم" or Text== "سلام عليكم" or Text== "سلامن عليكم" or Text=="السلامن عليكم" then
+return sendMsg(msg.chat_id_,msg.id_,slam[math.random(#slam)])
+elseif not msg.SudoUser and Text== "حلوو" or Text== "حلو" or Text== "حلووو" or Text=="حلوه" then
+return sendMsg(msg.chat_id_,msg.id_,hlo[math.random(#hlo)])
+elseif not msg.SudoUser and Text== "ههههههههههههههههههههههههههه" or Text== "هههههههههههههههههههههههههههههههههههههههههههههههه" or Text== "ههههههههه" or Text== "هههههههه" or Text=="هههههه" then
+return sendMsg(msg.chat_id_,msg.id_,ha[math.random(#ha)])
+elseif not msg.SudoUser and Text== "هههههههههههه" or Text== "ههههههههه" or Text== "ههههههههههههه" or Text== "هههههههه" or Text=="ههههههههههههههههههه" then
+return sendMsg(msg.chat_id_,msg.id_,haha[math.random(#haha)])
+elseif not msg.SudoUser and Text== "😂" or Text== "😂😂" or Text== "😂😂😂" or Text== "😂😂😂😂" or Text=="😄" then
+return sendMsg(msg.chat_id_,msg.id_,hahaha[math.random(#hahaha)])
 elseif msg.SudoUser and Text== "احبك" then
 return sendMsg(msg.chat_id_,msg.id_,"اموت عليك حياتي  😍❤️")
 elseif msg.SudoUser and Text== "تحبني" or Text=="حبك" then 
@@ -4364,7 +4365,7 @@ elseif Text== "🚶🏻‍♂"  then return sendMsg(msg.chat_id_,msg.id_,"لُـ
 elseif Text== "البوت واكف" then return sendMsg(msg.chat_id_,msg.id_,"هياتني 😐")
 elseif Text== "ضايج"  then return sendMsg(msg.chat_id_,msg.id_,"ليش ضايج حياتي")
 elseif Text== "ضايجه"  then return sendMsg(msg.chat_id_,msg.id_,"منو مضوجج كبدايتي")
-elseif Text== "😳" or Text== "😳😳" or Text== "😳😳😳" then return sendMsg(msg.chat_id_,msg.id_,"ها بس لا شفت خالتك الشكره 😳😹🕷")
+elseif Text== "😳" or Text== "😳😳" or Text== "😳😳😳" then return sendMsg(msg.chat_id_,msg.id_,"شفيك منصدم هههههه 😚")
 elseif Text== "صدك"  then return sendMsg(msg.chat_id_,msg.id_,"قابل اجذب عليك!؟ 🌚")
 elseif Text== "شغال"  then return sendMsg(msg.chat_id_,msg.id_,"نعم عزيزي باقي واتمدد 😎🌿")
 elseif Text== "تخليني"  then return sendMsg(msg.chat_id_,msg.id_,"اخليك بزاويه 380 درجه وانته تعرف الباقي 🐸")
