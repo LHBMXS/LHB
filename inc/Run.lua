@@ -248,15 +248,7 @@ else
 msg.GroupActive = false
 end
 
-if msg.sender_user_id_ == 879123322 then 
-msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
-msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
-msg.Rank = 1
-elseif msg.sender_user_id_ == 476328331 then 
-msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
-msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
-msg.Rank = 1
-elseif msg.sender_user_id_ == SUDO_ID then 
+if msg.sender_user_id_ == SUDO_ID then 
 msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
 msg.TheRank = 'مطور اساسي 👨🏻‍✈️' 
 msg.Rank = 1
@@ -287,9 +279,9 @@ elseif msg.sender_user_id_ == our_id then
 msg.Rank = 8
 else
 msg.TheRank = 'فقط عضو 🙍🏼‍♂️'
-msg.Rank = 9
+msg.Rank = 11
 end
-
+ 
 if msg.Rank == 1 then
 msg.SudoBase = true
 end
@@ -484,15 +476,15 @@ function tdcli_update_callback(data)
 	UpdateSourceStart = false
 	EditMsg(data.message_.chat_id_,data.message_.id_,'10% - |█          |')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'20% - |███         |')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/Run.lua','./inc/Run.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Run.lua','./inc/Run.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'40% - |█████       |')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/locks.lua','./inc/locks.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/locks.lua','./inc/locks.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'60% - |███████     |')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/Script.lua','./inc/Script.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Script.lua','./inc/Script.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'80% - |█████████   |')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/functions.lua','./inc/functions.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/plugins/zhrfa.lua','./plugins/zhrfa.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/plugins/games.lua','./plugins/games.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/functions.lua','./inc/functions.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/plugins/zhrfa.lua','./plugins/zhrfa.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/plugins/games.lua','./plugins/games.lua')
 	EditMsg(data.message_.chat_id_,data.message_.id_,'100% - |█████████████|\n\n🔝*¦* السورس الى اصدار \n📟*¦* تم اعاده تشغيل السورس بنجاح')
 	dofile("./inc/Run.lua")
 	print("Update Source And Reload ~ ./inc/Run.lua")
@@ -528,12 +520,12 @@ end
 	end)
 	end 
 	if msg.text== 'Update Source' and msg.sender_user_id_ == SUDO_ID then
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/Run.lua','./inc/Run.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/Script.lua','./inc/Script.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/functions.lua','./inc/functions.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/inc/locks.lua','./inc/locks.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/plugins/zhrfa.lua','./plugins/zhrfa.lua')
-	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/blob/main/plugins/games.lua','./plugins/games.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Run.lua','./inc/Run.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Script.lua','./inc/Script.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/functions.lua','./inc/functions.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/locks.lua','./inc/locks.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/plugins/zhrfa.lua','./plugins/zhrfa.lua')
+	download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/plugins/games.lua','./plugins/games.lua')
 	sendMsg(msg.chat_id_,msg.id_,'👷🏽| {* تــم تحديث وتثبيت السورس  *} 📡.\n\n👨🏼‍💼| { Bot is Update » }👍🏿',nil,function(arg,data)
 	dofile("./inc/Run.lua")
 	print("Reload ~ ./inc/Run.lua")
@@ -553,7 +545,7 @@ redis:hset(lhb..'username:'..tonumber(mmd),'username',msg.text)
 	redis:set(lhb..":SUDO_ID:",msg.text)
 send_msg(msg.chat_id_,"🔗│تم تثبيت الايدي الان قم برسال معرف المطور 🍃 @UserName ...")
 	end
-	if msg.text== 'نقل ملكية البوت👨‍💻' and msg.sender_user_id_ == SUDO_ID then
+	if msg.text== 'تغير المطور الاساسي' and msg.sender_user_id_ == SUDO_ID then
     send_msg(msg.chat_id_,"🔗│عزيزي قم برسال ايدي المطور ...🍂")
 redis:setex('setid'..msg.sender_user_id_,120,true)
 end
