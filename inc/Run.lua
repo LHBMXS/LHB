@@ -361,7 +361,6 @@ if msg.GroupActive and redis:get(lhb..'mute_tgservice'..msg.chat_id_) then
 Del_msg(msg.chat_id_,msg.id_)
 return false 
 end
-end
 if ISONEBOT then return false end
 end
 
@@ -554,7 +553,7 @@ redis:hset(lhb..'username:'..tonumber(mmd),'username',msg.text)
 	redis:set(lhb..":SUDO_ID:",msg.text)
 send_msg(msg.chat_id_,"🔗│تم تثبيت الايدي الان قم برسال معرف المطور 🍃 @UserName ...")
 	end
-	if msg.text== 'نقل ملكية البوت👨‍💻' and msg.sender_user_id_ == SUDO_ID then
+	if msg.text== 'تغير المطور الاساسي' and msg.sender_user_id_ == SUDO_ID then
     send_msg(msg.chat_id_,"🔗│عزيزي قم برسال ايدي المطور ...🍂")
 redis:setex('setid'..msg.sender_user_id_,120,true)
 end
