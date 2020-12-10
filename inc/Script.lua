@@ -3926,7 +3926,7 @@ GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿عذرا الكيبورد مقفول  \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
-SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..'\n'..msgx,12,USERCAR) end,nil)
+SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..''..msgx,12,USERCAR) end,nil)
 end
 end)
 return false
@@ -3984,7 +3984,7 @@ local msgx = "♦️╿عذرا ممنوع ارسال التاك او المعر
 GetUserID(msg.sender_user_id_,function(arg,data)
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
-SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..'\n'..msgx,12,USERCAR) end,nil)
+SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..''..msgx,12,USERCAR) end,nil)
 end 
 end)
 return false
@@ -4575,7 +4575,7 @@ end
 end 
 end
 end
-f MsgText[1] and MsgText[2] == "بحث" then
+if MsgText[1] and MsgText[2] == "بحث" then
 local InfoSearch = https.request('https://www.320youtube.com/v4/watch?v='..URL.escape(MsgText[1]))
 local JsonSearch = JSON.decode(InfoSearch)
 for k,vv in pairs(JsonSearch) do
