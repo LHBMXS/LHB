@@ -4575,7 +4575,20 @@ end
 end 
 end
 end
-
+f MsgText[1] and MsgText[2] == "بحث" then
+local InfoSearch = https.request('https://www.320youtube.com/v4/watch?v='..URL.escape(MsgText[1]))
+local JsonSearch = JSON.decode(InfoSearch)
+for k,vv in pairs(JsonSearch) do
+if k == 1 then
+local url,res = https.request('https://www.320youtube.com/v4/watch?v='..vv.id..'&status=getmp3')
+local infoLink = JSON.decode(url)  
+for k,v in pairs(infoLink) do
+local download_to = download_to_fileh(v.url,vv.id..'.mp3')
+print('download Mp3 done ...\nName : '..vv.Title..'\nIdLink : '..vv.id)
+sendAudio(msg.chat_id_, msg.id_,'./'..download_to,vv.Title,'SourceCh ---> @ASTORHBOTS')
+os.execute('rm -rf ./'..vv.id..'.mp3') 
+https.request('https://www.320youtube.com/v4/watch?v='..vv.id..'&status=del')
+end
 ------------------------------{ End Checking CheckExpire }------------------------
 
 
@@ -4718,6 +4731,7 @@ lhb = {
 "^(تثبيت)$",
 "^(الغاء التثبيت)$",
 "^(الغاء تثبيت)$",
+"^(بحث)$",
 "^(رابط)$",
 "^(الرابط)$",
 "^(ضع رابط)$",
