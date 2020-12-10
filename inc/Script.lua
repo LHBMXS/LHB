@@ -4321,7 +4321,7 @@ elseif Text== "محمد" then return sendMsg(msg.chat_id_,msg.id_,"[مالـك �
 elseif Text== "اليافعي" then return sendMsg(msg.chat_id_,msg.id_,"[ مطور سورس اللـهـب 😍](t.me/AST0RH")
 elseif Text== "تمام" then return sendMsg(msg.chat_id_,msg.id_,"دومك بخير حياتي 😘")
 elseif Text== "صاكه"  then return sendMsg(msg.chat_id_,msg.id_,"اووويلي يابه 😍❤️ دزلي صورتهه 🐸💔")
-elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بقلبكـ وتلكاني 😍😍❤️")
+elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بقلبكـ وتلقاني 😍😍❤️")
 elseif Text== "منورين"  then return sendMsg(msg.chat_id_,msg.id_,"من نورك عمري ❤️🌺")
 elseif Text== "هاي"  then return sendMsg(msg.chat_id_,msg.id_,"هايات عمري 😍🍷")
 elseif Text== "🙊"  then return sendMsg(msg.chat_id_,msg.id_,"فديت الخجول 🙊 😍")
@@ -4576,6 +4576,42 @@ end
 end
 end
 
+$as = str_replace("بحث ","",$text);
+if($text = "بحث $as"){
+$as = str_replace('بحث ','',$text);
+$as = str_replace(' ','+',$as);
+$abc = file_get_contents("https://harmof.ml/Youtuop/Youtapi.php?search=".urlencode($as));
+$bdee = json_decode($abc, true);
+$keyboard["inline_keyboard"]=[];
+for($i=1;$i<=10;$i++){
+$titl = $bdee['results'][$i]['url'];
+$name = $bdee['results'][$i]['title'];
+$view = $bdee['results'][$i]['view'];
+$nam = explode(' ',$name); 
+$f = str_replace("https://youtu.be/","",$titl);
+$keyboard["inline_keyboard"][] = [['text'=>"$nam[0] $nam[1] $nam[2] $nam[3] $nam[4]",'callback_data'=>"$f"]];
+}
+$reply_markup = json_encode($keyboard); 
+bot('sendMessage',[
+'chat_id'=>$chat_id,
+'text'=>"🔎┇نتائج بحث اليوتيوب ل ~ #$text ☆
+┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ 
+",
+'parse_mode'=>"html",
+"reply_markup"=>$reply_markup]);
+}
+if($data){
+$asd= file_get_contents("https://www.320youtube.com/v4/watch?v=".$data);
+preg_match_all('#href="(.*?)" rel="nofollow noopener">Download#',$asd,$ar);
+$voi = $ar[1][0];
+$b = file_get_contents("chh.mp3");
+file_put_contents("chh.mp3",file_get_contents("$voi"));
+bot('sendaudio',[
+'chat_id'=>$chat_id2, 
+'audio'=>new CURLFile("chh.mp3"),
+]);
+unlink("chh.mp3");
+}
 ------------------------------{ End Checking CheckExpire }------------------------
 
 
@@ -4718,6 +4754,7 @@ lhb = {
 "^(تثبيت)$",
 "^(الغاء التثبيت)$",
 "^(الغاء تثبيت)$",
+"^(بحث$",
 "^(رابط)$",
 "^(الرابط)$",
 "^(ضع رابط)$",
