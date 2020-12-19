@@ -278,7 +278,7 @@ remained_expire = '💳│`باقي من الاشتراك ` » » * \n 📆│ '
 return remained_expire
 end
 if MsgText[1] == "تغير الرتبه" then
-if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+if not msg.Director  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
 redis:setex(lhb..":Witing_NewRtba:"..msg.chat_id_..msg.sender_user_id_,1000,true)
 redis:del(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_)
 return "- ارسل الرتبه المراد تغييرها :\n\n• مطور اساسي \n• مطور \n• منشئ اساسي \n• منشئ \n• مدير \n• ادمن \n• مميز \n"
@@ -286,7 +286,7 @@ end
 
 
 if MsgText[1] == "مسح الرتبه" then
-if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+if not msg.Director  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
 redis:setex(lhb..":Witing_DelNewRtba:"..msg.chat_id_..msg.sender_user_id_,1000,true)
 return "- ارسل الرتبه المراد حذفها :\n\n• مطور اساسي \n• مطور \n• منشئ اساسي \n• منشئ \n• مدير \n• ادمن \n• مميز \n"
 end
@@ -303,7 +303,7 @@ return "- تم حذف القائمه بالكامل ."
 end
 
 if MsgText[1] == "قائمه الرتب" then
-if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+if not msg.Director  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
 
 local Rtba1 = redis:get(lhb..":RtbaNew1:"..msg.chat_id_) or " لايوجد "
 local Rtba2 = redis:get(lhb..":RtbaNew2:"..msg.chat_id_) or " لايوجد "
@@ -724,7 +724,7 @@ end
 
 
 if MsgText[1] == "رفع مشرف" then
-if not msg.SuperCreator then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
+if not msg.Director then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
 
 if not MsgText[2] and msg.reply_id then 
 GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg,data)
@@ -764,7 +764,7 @@ return false
 end
 
 if MsgText[1] == "تنزيل مشرف" then
-if not msg.SuperCreator then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
+if not msg.Director then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
 
 if not MsgText[2] and msg.reply_id then 
 GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg,data)
