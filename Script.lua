@@ -277,7 +277,73 @@ elseif tonumber(check_time) > 31536000 then
 remained_expire = '💳│`باقي من الاشتراك ` » » * \n 📆│ '..year..'* سنه و *'..month..'* شهر و *'..day..'* يوم و *'..hours..'* ساعه و *'..min..'* دقيقه و *'..sec..'* ثانيه' end
 return remained_expire
 end
+if MsgText[1] == "تغير الرتبه" then
+if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+redis:setex(lhb..":Witing_NewRtba:"..msg.chat_id_..msg.sender_user_id_,1000,true)
+redis:del(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_)
+return "- ارسل الرتبه المراد تغييرها :\n\n• مطور اساسي \n• مطور \n• منشئ اساسي \n• منشئ \n• مدير \n• ادمن \n• مميز \n"
+end
 
+
+if MsgText[1] == "مسح الرتبه" then
+if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+redis:setex(lhb..":Witing_DelNewRtba:"..msg.chat_id_..msg.sender_user_id_,1000,true)
+return "- ارسل الرتبه المراد حذفها :\n\n• مطور اساسي \n• مطور \n• منشئ اساسي \n• منشئ \n• مدير \n• ادمن \n• مميز \n"
+end
+if MsgText[1] == "مسح قائمه الرتب" then
+if not msg.SudoUser then return "📪¦ هذا الامر يخص {المطور} فقط  \n" end
+redis:del(lhb..":RtbaNew1:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew2:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew3:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew4:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew5:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew6:"..msg.chat_id_)
+redis:del(lhb..":RtbaNew7:"..msg.chat_id_)
+return "- تم حذف القائمه بالكامل ."
+end
+
+if MsgText[1] == "قائمه الرتب" then
+if not msg.SuperCreator  then return "📪¦ هذا الامر يخص {المنشئ الاساسي,المطور} فقط  \n" end
+
+local Rtba1 = redis:get(lhb..":RtbaNew1:"..msg.chat_id_) or " لايوجد "
+local Rtba2 = redis:get(lhb..":RtbaNew2:"..msg.chat_id_) or " لايوجد "
+local Rtba3 = redis:get(lhb..":RtbaNew3:"..msg.chat_id_) or " لايوجد "
+local Rtba4 = redis:get(lhb..":RtbaNew4:"..msg.chat_id_) or " لايوجد "
+local Rtba5 = redis:get(lhb..":RtbaNew5:"..msg.chat_id_) or " لايوجد "
+local Rtba6 = redis:get(lhb..":RtbaNew6:"..msg.chat_id_) or " لايوجد "
+local Rtba7 = redis:get(lhb..":RtbaNew7:"..msg.chat_id_) or " لايوجد "
+
+return "| قائمه الرتب الجديده ...\n\n• مطور اساسي 》 ["..Rtba1.."]\n• منشئ اساسي  》 ["..Rtba3.."]\n• مطور  》 ["..Rtba2.."]\n• منشئ  》 ["..Rtba4.."]\n• مدير  》 ["..Rtba5.."]\n• ادمن  》 ["..Rtba6.."]\n• مميز  》 ["..Rtba7.."]\n"
+end
+
+
+
+if MsgText[1] == "المالك"  or MsgText[1] == "المنشئ" or  MsgText[1] == "المنشى" then
+
+message = ""
+local monsha = redis:smembers(lhb..':MONSHA_Group:'..msg.chat_id_)
+if #monsha == 0 then 
+message = message .."📛| لا يوجد مالك !\n"
+else
+for k,v in pairs(monsha) do
+local info = redis:hgetall(lhb..'username:'..v)
+if info and info.username and info.username:match("@[%a%d_]+") then
+GetUserName(info.username,function(arg,data)
+
+uuuu = arg.UserName:gsub("@","")
+sendMsg(arg.ChatID,arg.MsgID,"["..data.title_.."](t.me/"..uuuu..")")
+end,{ChatID=msg.chat_id_,MsgID=msg.id_,UserName=info.username})
+else
+message = message..' ['..info.username..'](t.me/ASTORHBOTS)  \n'
+sendMsg(msg.chat_id_,msg.id_,message)
+end
+
+break
+
+end
+end
+
+end
 
 if MsgText[1] == "المجموعه" then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
@@ -1932,7 +1998,7 @@ end
 
 if (MsgText[1] == 'تحديث السورس' or MsgText[1] == 'تحديث السورس 🔂') then
 if not msg.SudoBase then return "♦️*│*هذا الامر يخص {المطور الاساسي} فقط  \n💥" end
-local GetVerison = https.request('https://LHB.github.io/GetVersion.txt') or 0
+local GetVerison = https.request('https://github.com/LHBMXS/lhb.github.io/GetVersion.txt') or 0
 if GetVerison > version then
 UpdateSourceStart = true
 sendMsg(msg.chat_id_,msg.id_,'🔛*╿* يوجد تحديث جديد الان \n📡*╽* جاري تنزيل وتثبيت التحديث  ...')
@@ -3908,7 +3974,7 @@ return sendMsg(msg.chat_id_,msg.id_,'📛*╿* لا يمكنني مسح الرس
 end
 if redis:get(lhb..'lock_woring'..msg.chat_id_) then
 GetUserID(msg.sender_user_id_,function(arg,data)
-local msgx = "♦️╿عذرا ممنوع ارسال الصوت  \n📛"
+local msgx = "♦️╿عذرا ممنوع ارسال الصوت  \n??"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
 SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..'\n'..msgx,12,USERCAR) end,nil)
@@ -4140,32 +4206,26 @@ local sh = {
 "هلا بتاج راس ["..Bot_Name.."] 😘❤️",
 }
 local sss = {
-"بـّخـْيرٌ دامـّگ بـْخـّيرٌ يـّٱلـّغـٌالـّے",
+"احســن مــن انتهــــہ شــلونـــك شــخــبـارك يـــول مۂــــشتـــاقـــلك شــو ماكـــو 😹🌚",
 "تمام وانت يكيوت ؟ 💕",
-"تمام انته شلونك 😁❤️",
-"ع حطت ايدك مافي تغيير شسوي يدنياء🤷🏼‍♂️",
+"تمام ئنته شلونك 😁❤️",
+"ع حطت ايدك ماكو تغيير شسوي يدنيه 🤷🏼‍♂️",
 "لوني مثل لونك كافي تسئل😒",
-"انا بالنسبة الي دايخ شوف بقية الاعضااء 😂🖕",
+"اني بالنسبة اليه دايح شوف بقيه الاعضااء 😂🖕",
 }
 local dr = {
-"الله وياك والتكسي ع حساب المدير😂😂",
-"لاتطول الغيبة🌝💋",
-"بدري وين🙄",
-"منو زعلك حتى تروح😥",
-"سلملي ع الجيران😂",
-"تعال وين رايح عندي سالفه معك",
-"وين رايح خلينا متونسين🙁💔",
-"الله وياك يروحي😔💔",
-"انقلع😂",
-"راحل ورحل وفي رجعته مافي امل😂😥",
-"يلا اذلف😆",
-"وين رايح",
-}
-local slam = {
-"وْعـلُـيَــكِـمٌ الُـــسِــــلُامٌ ❥",
-"وٍعَلْيّكَمُ ٱلْسَلآمّ وٍرٍحَمُةٌ اللَّــْـْہ ۆبُركَاتة❥",
-"عَلْيّكَمُ ٱلْسَلآمّ وٍرٍحَمُةٌ اللَّــْـْہ ۆبُركَاتة♥",
-"وعليكم السلام اغاتي🌝👋",
+"الله وياك والتكسي ع حساب المدير 😂😂 ماعليه اني 🙈",
+"هاك الف شتري بيها لفتين فلافل 🌝💋",
+"بعد وكت وين 🙄",
+"منو زعلك حته تروح 😥",
+"سلملي ع ئمك 🤷🏼‍♀️",
+"تعال وين رايح عندي شغله وياك 🐣",
+"• وين رايح خلينه متونسين 🙁💔",
+"پہ‿؏ـد. وكت 😔💔",
+"وين خلينه متونسين بيك 😂",
+"تعال/ي نضحك عليك/ج الوصخ/ه 😋",
+"يلا دي😆",
+"وين رايح/ه للخاص تزحف/ين 🐛",
 }
 local nnn = {
 "اسمي ["..Bot_Name.."] 😌",
@@ -4184,52 +4244,9 @@ local lovm = {
 "اذا كتلك/ج احبك/ج شراح تستفاد/ين 😕❤️",
 "ولي ماحبك/ج 🙊💔",
 }
-local ha = {
-"دُۈۈۈمٌ يَـــآرَبّ",
-"دوَوّم يــــ غٓـاليَ ــــا",
-"عَسَـــ دُوَوّوِوُمْ ـــآھ",
-" ضحكنا معاك 🤪",
-"انَ شِاءالُلُُه دِايَــمٌـُهـ",
-"اضحـكـ جعل مايـضـحـكـ غيـركـ",
-"لا تضحك مجامله 🧐",
-"عمري يالي يضحكون يا ناس 🤭",
-"ابتليت بحب ضحكتك وعيُونك الحلوة 🙊💗",
-}
-local haha = {
-"دُۈۈۈمٌ يَـــآرَبّ",
-"دوَوّم يــــ غٓـاليَ ــــا",
-"عَسَـــ دُوَوّوِوُمْ ـــآھ",
-" ضحكنا معاك 🤪",
-"انَ شِاءالُلُُه دِايَــمٌـُهـ",
-"اضحـكـ جعل مايـضـحـكـ غيـركـ",
-"لا تضحك مجامله 🧐",
-"عمري يالي يضحكون يا ناس 🤭",
-}
-local hahaha = {
-"دُۈۈۈمٌ يَـــآرَبّ",
-"دوَوّم يــــ غٓـاليَ ــــا",
-"عَسَـــ دُوَوّوِوُمْ ـــآھ",
-" ضحكنا معاك 🤪",
-"انَ شِاءالُلُُه دِايَــمٌـُهـ",
-"اضحـكـ جعل مايـضـحـكـ غيـركـ",
-"لا تضحك مجامله 🧐",
-"عمري يالي يضحكون يا ناس 🤭",
-"ابتليت بحب ضحكتك وعيُونك الحلوة 🙊💗",
-}
-local hlo = {
-"مو بحلاتكـ🤭",
-"انت الاحلى 🌚❤️",
-"عـيـونـكـ الـحلــوه ♥☻",
-"انت الحلوووو♥",
-}
-local ant = {
-"اانت اللي له القلب يشتاق♥",
-"💔 انت وبس اللي حبيبي 👈🏻♥",
-"انت حبيبي انا وبس🙈♥",
-}
 local song = {
 "عمي يبو البار 🤓☝🏿️ \nصبلي لبلبي ترى اني سكران 😌 \n وصاير عصبي 😠 \nانه وياج يم شامه 😉 \nوانه ويــــاج يم شامه  شد شد  👏🏿👏🏿 \nعدكم سطح وعدنه سطح 😁 \n نتغازل لحد الصبح 😉 \n انه وياج يم شامه 😍 \n وانه وياج فخريه وانه وياج حمديه 😂🖖🏿\n ",
-"اي مو كدامك مغني قديم 😒🎋 هوه ﴿↜ انـِۨـۛـِۨـۛـِۨيـُِـٌِہۧۥۛ ֆᵛ͢ᵎᵖ ⌯﴾❥  ربي كامز و تكلي غنيلي 🙄😒🕷 آإرۈحُـ✯ـہ✟  😴أنــ💤ــااااام😴  اشرف تالي وكت يردوني اغني 😒☹️??","لا تظربني لا تظرب 💃💃 كسرت الخيزارانه💃?? صارلي سنه وست اشهر💃?? من ظربتك وجعانه🤒😹",
+"اي مو كدامك مغني قديم 😒🎋 هوه ﴿↜ انـِۨـۛـِۨـۛـِۨيـُِـٌِہۧۥۛ ֆᵛ͢ᵎᵖ ⌯﴾❥  ربي كامز و تكلي غنيلي 🙄😒🕷 آإرۈحُـ✯ـہ✟  😴أنــ💤ــااااام😴  اشرف تالي وكت يردوني اغني 😒☹️??","لا تظربني لا تظرب 💃💃 كسرت الخيزارانه💃?? صارلي سنه وست اشهر💃💃 من ظربتك وجعانه🤒😹",
 "موجوع كلبي😔والتعب بية☹️من اباوع على روحي😢ينكسر كلبي عليه😭",
 "ايامي وياها👫اتمنا انساها😔متندم اني حيل😞يم غيري هيه💃تضحك😂عليه│مقهور انام الليل😢كاعد امسح بل رسائل✉️وجان اشوف كل رسايلها📩وبجيت هوايه😭شفت احبك😍واني من دونك اموت😱وشفت واحد 🚶صار هسه وياية👬اني رايدها عمر عمر تعرفني كل زين🙈 وماردت لا مصلحة ولاغايه😕والله مافد يوم بايسها💋خاف تطلع🗣البوسه💋وتجيها حجايه😔️",
 "│صوتي بعد مت سمعه✋يال رايح بلا رجعة🚶بزودك نزلت الدمعة ذاك اليوم☝️يال حبيتلك ثاني✌روح وياه وضل عاني😞يوم اسود علية اني🌚 ذاك اليوم☝️تباها بروحك واضحك😂لان بجيتلي عيني││ وافراح يابعد روحي😌خل الحركة تجويني😔🔥صوتي بعد متسمعة🗣✋",
@@ -4278,25 +4295,13 @@ elseif msg.SudoUser and Text=="هلو" then
 return sendMsg(msg.chat_id_,msg.id_,sh[math.random(#sh)])
 elseif not msg.SudoUser and Text=="هلو" then 
 return sendMsg(msg.chat_id_,msg.id_,ns[math.random(#ns)])
-elseif not msg.SudoUser and Text== "شلونكم" or Text== "شلونك" or Text== "شونك" or Text== "شونكم" or Text=="شلونكم" then
+elseif not msg.SudoUser and Text== "شلونكم" or Text== "شلونك" or Text== "شونك" or Text== "شونكم" or Text== "شلونكم" then
 return sendMsg(msg.chat_id_,msg.id_,sss[math.random(#sss)])
-elseif not msg.SudoUser and Text== " باي" or Text=="باي" then
+elseif not msg.SudoUser and Text==" باي" or Text == "باي" then
 return sendMsg(msg.chat_id_,msg.id_,dr[math.random(#dr)])
-elseif not msg.SudoUser and Text==" بوت" or Text=="بوت" then
+elseif not msg.SudoUser and Text==" بوت" or Text == "بوت" then
 return sendMsg(msg.chat_id_,msg.id_,nnn[math.random(#nnn)])
-elseif not msg.SudoUser and Text== "أنا" or Text== "اني" or Text=="انا" then
-return sendMsg(msg.chat_id_,msg.id_,ant[math.random(#ant)]) 
-elseif not msg.SudoUser and Text== "سلام" or Text== "السلام عليكم" or Text== "سلام عليكم" or Text== "سلامن عليكم" or Text=="السلامن عليكم" then
-return sendMsg(msg.chat_id_,msg.id_,slam[math.random(#slam)])
-elseif not msg.SudoUser and Text== "حلوو" or Text== "حلو" or Text== "حلووو" or Text=="حلوه" then
-return sendMsg(msg.chat_id_,msg.id_,hlo[math.random(#hlo)])
-elseif not msg.SudoUser and Text== "ههههههههههههههههههههههههههه" or Text== "هههههههههههههههههههههههههههههههههههههههههههههههه" or Text== "ههههههههه" or Text== "هههههههه" or Text=="هههههه" then
-return sendMsg(msg.chat_id_,msg.id_,ha[math.random(#ha)])
-elseif not msg.SudoUser and Text== "هههههههههههه" or Text== "ههههههههه" or Text== "ههههههههههههه" or Text== "هههههههه" or Text=="ههههههههههههههههههه" then
-return sendMsg(msg.chat_id_,msg.id_,haha[math.random(#haha)])
-elseif not msg.SudoUser and Text== "😂" or Text== "😂😂" or Text== "😂😂😂" or Text== "😂😂😂😂" or Text=="😄" then
-return sendMsg(msg.chat_id_,msg.id_,hahaha[math.random(#hahaha)])
-elseif msg.SudoUser and Text== "احبك" then
+elseif msg.SudoUser and Text== "احبك" then 
 return sendMsg(msg.chat_id_,msg.id_,"اموت عليك حياتي  😍❤️")
 elseif msg.SudoUser and Text== "تحبني" or Text=="حبك" then 
 return sendMsg(msg.chat_id_,msg.id_,"اموت عليك حياتي  😍❤️")
@@ -4321,7 +4326,7 @@ elseif Text== "محمد" then return sendMsg(msg.chat_id_,msg.id_,"[مالـك �
 elseif Text== "اليافعي" then return sendMsg(msg.chat_id_,msg.id_,"[ مطور سورس اللـهـب 😍](t.me/AST0RH")
 elseif Text== "تمام" then return sendMsg(msg.chat_id_,msg.id_,"دومك بخير حياتي 😘")
 elseif Text== "صاكه"  then return sendMsg(msg.chat_id_,msg.id_,"اووويلي يابه 😍❤️ دزلي صورتهه 🐸💔")
-elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بقلبكـ وتلقاني 😍😍❤️")
+elseif Text== "وينك"  then return sendMsg(msg.chat_id_,msg.id_,"دور بقلبكـ وتلكاني 😍😍❤️")
 elseif Text== "منورين"  then return sendMsg(msg.chat_id_,msg.id_,"من نورك عمري ❤️🌺")
 elseif Text== "هاي"  then return sendMsg(msg.chat_id_,msg.id_,"هايات عمري 😍🍷")
 elseif Text== "🙊"  then return sendMsg(msg.chat_id_,msg.id_,"فديت الخجول 🙊 😍")
@@ -4360,19 +4365,21 @@ elseif Text== "شكو ماكو"  then return sendMsg(msg.chat_id_,msg.id_,"غي�
 elseif Text== "😋"  then return sendMsg(msg.chat_id_,msg.id_,"طبب لسانك جوه عيب 😌")
 elseif Text== "😡"  then  return sendMsg(msg.chat_id_,msg.id_,"ابرد  🚒"  )
 elseif Text== "مرحبا"  then return sendMsg(msg.chat_id_,msg.id_,"مراحب 😍❤️ نورت-ي 🌹")
+elseif Text== "سلام" or Text== "السلام عليكم" or Text== "سلام عليكم" or Text=="سلامن عليكم" or Text=="السلامن عليكم" then 
+return sendMsg(msg.chat_id_,msg.id_,"وعليكم السلام اغاتي🌝👋" )
 elseif Text== "عضه"  then return sendMsg(msg.chat_id_,msg.id_,"شكلولك علي جلب؟ انته روح عضه 😕😹" )
 elseif Text== "🚶🏻‍♂"  then return sendMsg(msg.chat_id_,msg.id_,"لُـﮩـضڵ تتـمشـﮥ اڪعـد ﺳـﯠڵـف 🤖👋🏻")
 elseif Text== "البوت واكف" then return sendMsg(msg.chat_id_,msg.id_,"هياتني 😐")
 elseif Text== "ضايج"  then return sendMsg(msg.chat_id_,msg.id_,"ليش ضايج حياتي")
 elseif Text== "ضايجه"  then return sendMsg(msg.chat_id_,msg.id_,"منو مضوجج كبدايتي")
-elseif Text== "😳" or Text== "😳😳" or Text== "😳😳😳" then return sendMsg(msg.chat_id_,msg.id_,"شفيك منصدم هههههه 😚")
+elseif Text== "😳" or Text== "😳😳" or Text== "😳😳😳" then return sendMsg(msg.chat_id_,msg.id_,"ها بس لا شفت خالتك الشكره 😳😹🕷")
 elseif Text== "صدك"  then return sendMsg(msg.chat_id_,msg.id_,"قابل اجذب عليك!؟ 🌚")
 elseif Text== "شغال"  then return sendMsg(msg.chat_id_,msg.id_,"نعم عزيزي باقي واتمدد 😎🌿")
 elseif Text== "تخليني"  then return sendMsg(msg.chat_id_,msg.id_,"اخليك بزاويه 380 درجه وانته تعرف الباقي 🐸")
 elseif Text== "فديتك" or Text== "فديتنك"  then return  sendMsg(msg.chat_id_,msg.id_,"فداكـ/چ ثولان العالـم😍😂" )
 elseif Text== "مساعدة"  then return sendMsg(msg.chat_id_,msg.id_,"لعرض قائمة المساعدة اكتب الاوامر 🌚❤️")
 elseif Text== "زاحف"  then return sendMsg(msg.chat_id_,msg.id_,"زاحف عله خالتك الشكره 🌝")
-elseif Text== "حلوووو"  then return sendMsg(msg.chat_id_,msg.id_,"انت الاحلى 🌚❤️")
+elseif Text== "حلو"  then return sendMsg(msg.chat_id_,msg.id_,"انت الاحلى 🌚❤️")
 elseif Text== "تبادل"  then return sendMsg(msg.chat_id_,msg.id_,"كافي ملينه تبادل 😕💔")
 elseif Text== "عاش"  then return sendMsg(msg.chat_id_,msg.id_,"الحلو 🌝🌷")
 elseif Text== "ورده" or Text== "وردة" then return sendMsg(msg.chat_id_,msg.id_,"أنت/ي  عطرها 🌹🌸")
@@ -4452,11 +4459,32 @@ else
 return sendMsg(msg.chat_id_,msg.id_,"انجب انته لاتندفر 😏")
 end 
 end 
-
-
-
-
+elseif Text== "انا مين" or Text== "مين انا"  then
+if msg.SudoUser then  
+return sendMsg(msg.chat_id_,msg.id_,"[انت مطوري الغالي ♕](https://t.me/ASTORHBOTS) ")
+elseif msg.Creator then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت منشئ المجموعه  تاج راسي♔](https://t.me/ASTORHBOTS)")
+elseif msg.Director then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت مدير المجموعه๑](https://t.me/ASTORHBOTS)")
+elseif msg.Admin then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت ادمن شد حيلك♘](https://t.me/ASTORHBOTS)")
+else 
+return sendMsg(msg.chat_id_,msg.id_,"[مجرد عضو هنا 𖦹](https://t.me/ASTORHBOTS)")
 end 
+end 
+elseif Text== "مين ضافني" or Text== "منو ضافني"  then
+if msg.SudoUser then  
+return sendMsg(msg.chat_id_,msg.id_,"[انت مكانك كل مكان يا مطور♕](https://t.me/ASTORHBOTS) ")
+elseif msg.Creator then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت منشئ المجموعه](https://t.me/ASTORHBOTS)")
+elseif msg.Director then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
+elseif msg.Admin then 
+return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
+else 
+return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
+end
+
 
 
 end
@@ -4563,7 +4591,7 @@ if redis:get(lhb..'CheckExpire::'..msg.chat_id_) then
 local ExpireDate = redis:ttl(lhb..'ExpireDate:'..msg.chat_id_)
 if not ExpireDate and not msg.SudoUser then
 rem_data_group(msg.chat_id_)
-sendMsg(SUDO_ID,0,'🕵🏼️‍♀️╿انتهى الاشتراك في احد المجموعات ✋🏿\n👨🏾‍🔧│المجموعه : '..FlterName(redis:get(lhb..'group:name'..msg.chat_id_))..'🍃\n💂🏻‍♀️╽ايدي : '..msg.chat_id_)
+sendMsg(SUDO_ID,0,'🕵🏼️‍♀️╿انتهى الاشتراك في احد المجموعات ✋🏿\n👨🏾‍🔧│المجموعه : '..FlterName(redis:get(lhb..'group:name'..msg.chat_id_))..'🍃\n??🏻‍♀️╽ايدي : '..msg.chat_id_)
 sendMsg(msg.chat_id_,0,'🕵🏼️‍♀️╿انتهى الاشتراك البوت✋🏿\n💂🏻‍♀️│سوف اغادر المجموعه فرصه سعيده 👋🏿\n👨🏾‍🔧╽او راسل المطور للتجديد '..SUDO_USER..' 🍃')
 return StatusLeft(msg.chat_id_,our_id)
 else
@@ -4575,42 +4603,7 @@ end
 end 
 end
 end
-$as = str_replace("بحث ","",$text);
-if($text = "بحث $as"){
-$as = str_replace('بحث ','',$text);
-$as = str_replace(' ','+',$as);
-$abc = file_get_contents("https://harmof.ml/Youtuop/Youtapi.php?search=".urlencode($as));
-$bdee = json_decode($abc, true);
-$keyboard["inline_keyboard"]=[];
-for($i=1;$i<=10;$i++){
-$titl = $bdee['results'][$i]['url'];
-$name = $bdee['results'][$i]['title'];
-$view = $bdee['results'][$i]['view'];
-$nam = explode(' ',$name); 
-$f = str_replace("https://youtu.be/","",$titl);
-$keyboard["inline_keyboard"][] = [['text'=>"$nam[0] $nam[1] $nam[2] $nam[3] $nam[4]",'callback_data'=>"$f"]];
-}
-$reply_markup = json_encode($keyboard); 
-bot('sendMessage',[
-'chat_id'=>$chat_id,
-'text'=>"🔎┇نتائج بحث اليوتيوب ل ~ #$text ☆
-┉ ┉ ┉ ┉ ┉ ┉ ┉ ┉ 
-",
-'parse_mode'=>"html",
-"reply_markup"=>$reply_markup]);
-}
-if($data){
-$asd= file_get_contents("https://www.320youtube.com/v4/watch?v=".$data);
-preg_match_all('#href="(.*?)" rel="nofollow noopener">Download#',$asd,$ar);
-$voi = $ar[1][0];
-$b = file_get_contents("chh.mp3");
-file_put_contents("chh.mp3",file_get_contents("$voi"));
-bot('sendaudio',[
-'chat_id'=>$chat_id2, 
-'audio'=>new CURLFile("chh.mp3"),
-]);
-unlink("chh.mp3");
-}
+
 ------------------------------{ End Checking CheckExpire }------------------------
 
 
@@ -4701,7 +4694,6 @@ lhb = {
 '^(تعطيل)$',
 '^(تعطيل) (.+)$',
 '^(ضع تكرار) (%d+)$',
-"^(بحث)$",
 "^(مسح)$",
 "^(مسح) (.+)$",
 '^(منع) (.+)$',
@@ -4754,7 +4746,6 @@ lhb = {
 "^(تثبيت)$",
 "^(الغاء التثبيت)$",
 "^(الغاء تثبيت)$",
-
 "^(رابط)$",
 "^(الرابط)$",
 "^(ضع رابط)$",
