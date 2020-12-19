@@ -4555,7 +4555,87 @@ redis:del(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_)
 sendMsg(msg.chat_id_,msg.id_,"- تم تغيير الرتبه بنجاح  \n\n•  ["..rtbanamenew.."] 》 ["..msg.text.."]\n")
 return false
 end
+if msg.SuperCreator and redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_) then 
 
+NameUser = redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+UserID = redis:get(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+if not msg.text:match("[1234567]") and not msg.text:match("[*]") and not msg.text:match("[*][*]") then
+redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+return sendMsg(msg.chat_id_,msg.id_,"📛*¦* تم الغاء الامر , يجب ان يحتوي رسالتك ع ارقام الصلاحيات المعروضه . \n📛")   
+end
+
+Nikname = msg.text:gsub("[1234567]","")
+Nikname = Nikname:gsub("[*]","")
+ResAdmin = UploadAdmin(msg.chat_id_,UserID,msg.text)  
+if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: not enough rights"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا البوت ليس لديه صلاحيه رفع مشرفين في المجموعه \n📛") 
+elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: can\'t remove chat owner"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المنشئ للمجموعه. \n📛") 
+elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المشرف مرفوع من قبل منشئ اخر . \n📛") 
+elseif ResAdmin == '{"ok":true,"result":true}' then
+ChangeNikname(msg.chat_id_,UserID,Nikname)
+redis:sadd(lhb..'admins:'..msg.chat_id_,UserID)
+local trues = "✓"
+local falses = "✖️"
+
+infochange = falses
+infochange1 = falses
+infochange2 = falses
+infochange3 = falses
+infochange4 = falses
+infochange5 = falses
+if msg.text:match(1) then
+infochange = trues
+end
+if msg.text:match(2) then
+infochange1 = trues
+end
+if msg.text:match(3) then
+infochange2 = trues
+end
+if msg.text:match(4) then
+infochange3 = trues
+end
+if msg.text:match(5) then
+infochange4 = trues
+end
+if msg.text:match(6) then
+infochange5 = trues
+end
+if msg.text:match("[*][*]") then
+infochange = trues
+infochange1 = trues
+infochange2 = trues
+infochange3 = trues
+infochange4 = trues
+infochange5 = trues
+elseif msg.text:match("[*]") then
+infochange = trues
+infochange1 = trues
+infochange2 = trues
+infochange3 = trues
+infochange4 = trues
+end
+
+if Nikname == "" then Nikname = "بدون" end
+sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」 صلاحياته : \n\n"
+.."📱¦ تغيير معلومات المجموعه : "..infochange.."\n"
+.."🗑¦ صلاحيه حذف الرسائل : "..infochange1.."\n"
+.."📬¦ صلاحيه دعوه مستخدمين : "..infochange2.."\n"
+.."🔑¦ صلاحيه حظر وتقيد المستخدمين : "..infochange3.."\n"
+.."📌¦ صلاحيه تثبيت الرسائل : "..infochange4.."\n"
+.."📤¦ صلاحيه رفع مشرفين اخرين : "..infochange5.."\n\n"
+.."📋¦ الـكـنـيـة : ["..Nikname.."]\n"
+.."\n✓") 
+else
+sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」  حدث خطأ ما  \n✓") 
+end
+redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+return false
+end
 ------------------------------{ End Replay Send }------------------------
 
 ------------------------------{ Start Checking CheckExpire }------------------------
