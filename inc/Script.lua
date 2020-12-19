@@ -4489,6 +4489,72 @@ end
 
 end
 
+if msg.SudoUser and msg.text and redis:get(lhb..":Witing_DelNewRtba:"..msg.chat_id_..msg.sender_user_id_) then 
+redis:del(lhb..":Witing_DelNewRtba:"..msg.chat_id_..msg.sender_user_id_)
+
+if msg.text ~= "مطور اساسي" and msg.text ~= "مطور" and msg.text ~= "منشئ اساسي" and msg.text ~= "منشئ" and msg.text ~= "مدير" and msg.text ~= "ادمن" and msg.text ~= "مميز" then
+sendMsg(msg.chat_id_,msg.id_,"عذرا هذه الرتبه غير متوفره في السورس \n• تم الغاء الامر")
+return false
+end
+
+if msg.text == "مطور اساسي" then
+redis:del(lhb..":RtbaNew1:"..msg.chat_id_)
+elseif msg.text == "مطور" then
+redis:del(lhb..":RtbaNew2:"..msg.chat_id_)
+elseif msg.text == "منشئ اساسي" then
+redis:del(lhb..":RtbaNew3:"..msg.chat_id_)
+elseif msg.text == "منشئ" then
+redis:del(lhb..":RtbaNew4:"..msg.chat_id_)
+elseif msg.text == "مدير" then
+redis:del(lhb..":RtbaNew5:"..msg.chat_id_)
+elseif msg.text == "ادمن" then
+redis:del(lhb..":RtbaNew6:"..msg.chat_id_)
+elseif msg.text == "مميز" then
+redis:del(lhb..":RtbaNew7:"..msg.chat_id_)
+end
+
+sendMsg(msg.chat_id_,msg.id_,"- تم حذف الرتبه المضافه")
+return false
+end
+
+if msg.SudoUser and msg.text and redis:get(lhb..":Witing_NewRtba:"..msg.chat_id_..msg.sender_user_id_) then 
+redis:del(lhb..":Witing_NewRtba:"..msg.chat_id_..msg.sender_user_id_)
+
+if msg.text ~= "مطور اساسي" and msg.text ~= "مطور" and msg.text ~= "منشئ اساسي" and msg.text ~= "منشئ" and msg.text ~= "مدير" and msg.text ~= "ادمن" and msg.text ~= "مميز" then
+sendMsg(msg.chat_id_,msg.id_,"عذرا هذه الرتبه غير متوفره في السورس \n• تم الغاء الامر")
+return false
+end
+
+redis:setex(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_,1000,msg.text)
+sendMsg(msg.chat_id_,msg.id_,"- الان ارسل الرتبه الجديده")
+return false
+end
+
+
+if msg.SudoUser and msg.text and redis:get(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_) then 
+
+
+local rtbanamenew = redis:get(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_)
+if rtbanamenew == "مطور اساسي" then
+redis:set(lhb..":RtbaNew1:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "مطور" then
+redis:set(lhb..":RtbaNew2:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "منشئ اساسي" then
+redis:set(lhb..":RtbaNew3:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "منشئ" then
+redis:set(lhb..":RtbaNew4:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "مدير" then
+redis:set(lhb..":RtbaNew5:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "ادمن" then
+redis:set(lhb..":RtbaNew6:"..msg.chat_id_,msg.text)
+elseif rtbanamenew == "مميز" then
+redis:set(lhb..":RtbaNew7:"..msg.chat_id_,msg.text)
+end
+
+redis:del(lhb..":Witting_NewRtba2:"..msg.chat_id_..msg.sender_user_id_)
+sendMsg(msg.chat_id_,msg.id_,"- تم تغيير الرتبه بنجاح  \n\n•  ["..rtbanamenew.."] 》 ["..msg.text.."]\n")
+return false
+end
 
 ------------------------------{ End Replay Send }------------------------
 
