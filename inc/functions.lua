@@ -423,13 +423,13 @@ end
 function UpdateSource(msg,edit)
 if edit then EditMsg(msg.chat_id_,msg.id_,'10% - |█          |') end
 if edit then EditMsg(msg.chat_id_,msg.id_,'20% - |███         |') end
-download_file('https://raw.githubusercontent.com/LHBMXS/LHB/master/inc/Run.lua','./inc/Run.lua')
+download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Run.lua','./inc/Run.lua')
 if edit then EditMsg(msg.chat_id_,msg.id_,'40% - |█████       |') end
-download_file('https://raw.githubusercontent.com/LHBMXS/LHN/master/inc/locks.lua','./inc/locks.lua')
+download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/locks.lua','./inc/locks.lua')
 if edit then EditMsg(msg.chat_id_,msg.id_,'60% - |███████     |') end
-download_file('https://raw.githubusercontent.com/LHBMXS/LHB/master/inc/Script.lua','./inc/Script.lua')
+download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/Script.lua','./inc/Script.lua')
 if edit then EditMsg(msg.chat_id_,msg.id_,'80% - |█████████   |') end
-download_file('https://raw.githubusercontent.com/LHBMXS/LHB/master/inc/functions.lua','./inc/functions.lua')
+download_file('https://raw.githubusercontent.com/LHBMXS/LHB/main/inc/functions.lua','./inc/functions.lua')
 if edit then EditMsg(msg.chat_id_,msg.id_,'100% - |█████████████|\n\n🔝*¦* تم تحديث السورس الى اصدار *v'..redis:get(lhb..":VERSION")..'*\n📟*¦* تم اعاده تشغيل السورس بنجاح') end
 if edit then dofile("./inc/Run.lua") end
 print("Update Source And Reload ~ ./inc/Run.lua")
