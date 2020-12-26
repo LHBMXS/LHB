@@ -2174,89 +2174,6 @@ for i=1, #sticker 	do message = message ..ii..' - *{* '..sticker[i]..' *}_*( م�
 for i=1, #video 	do message = message ..ii..' - *{* '..	video[i]..' *}_*( فيديو  🎞 ) \n'ii = ii + 1 end
 return message..'\n➖➖➖'
 end
-----=================================| كود الرد العشوائي المجموعات|===============================================
-if MsgText[1]=="اضف رد عشوائي" and msg.GroupActive then
-if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:del(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
-return "📭¦ حسننا ,  الان ارسل كلمه الرد للعشوائي \n-"
-end
-
-
-if MsgText[1]== "مسح رد عشوائي" then
-if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(lhb..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_,300,true)
-return "📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الرد العشوائي لمسحها 🍃"
-end
-
-
-if MsgText[1] == "مسح الردود العشوائيه" then
-if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
-if #AlRdod == 0 then return "🛑*¦* الردود العشوائيه محذوفه بالفعل\n✓" end
-for k,v in pairs(AlRdod) do redis:del(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) redis:del(lhb..':caption_replay:Random:'..msg.chat_id_..v) 
-end
-redis:del(lhb..':KlmatRRandom:'..msg.chat_id_) 
-return "🙋🏼‍♂️*¦* أهلا عزيزي "..msg.TheRankCmd.."  \n🛑*¦* تم مسح جميع الردود العشوائيه\n✓"
-end
-
-if MsgText[1] == "الردود العشوائيه" then
-if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
-message = "📜| الردود العشـوائيه :\n\n"
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
-if #AlRdod == 0 then 
-message = message .."📛| لا توجد ردود عشوائيه مضافه !\n"
-else
-for k,v in pairs(AlRdod) do
-local incrr = redis:scard(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) 
-message = message..k..'- ['..v..'] ⋙ •⊱ {*'..incrr..'*} ⊰• رد\n'
-end
-end
-return message.."\n"
-end
-----=================================|نهايه كود الرد العشوائي المجموعات|===============================================
-
-----=================================|كود الرد العشوائي العام|===============================================
-
-if MsgText[1]=="اضف رد عشوائي عام" then
-if not msg.SudoUser then return "📪¦ هذا الامر يخص {المطور} فقط  \n" end
-redis:setex(lhb..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:del(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
-return "📭¦ حسننا ,  الان ارسل كلمه الرد للعشوائي العام \n-"
-end
-
-
-if MsgText[1]== "مسح رد عشوائي عام" then
-if not msg.SudoUser then return "📪¦ هذا الامر يخص {المطور} فقط  \n" end
-redis:setex(lhb..':DelrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_,300,true)
-return "📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الرد العشوائي العام لمسحها 🍃"
-end
-
-if MsgText[1] == "مسح الردود العشوائيه العامه" then
-if not msg.SudoUser then return "📪¦ هذا الامر يخص {المطور} فقط  \n" end
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:') 
-if #AlRdod == 0 then return "🛑*¦* الردود العشوائيه محذوفه بالفعل\n✓" end
-for k,v in pairs(AlRdod) do redis:del(lhb..":ReplayRandom:"..v) redis:del(lhb..':caption_replay:Random:'..v)  end
-redis:del(lhb..':KlmatRRandom:') 
-return "🙋🏼‍♂️*¦* أهلا عزيزي "..msg.TheRankCmd.."  \n🛑*¦* تم مسح جميع الردود العشوائيه\n✓"
-end
-
-if MsgText[1] == "الردود العشوائيه العام" then
-if not msg.SudoUser then return "📪¦ هذا الامر يخص {المطور} فقط  \n" end
-message = "📜| الردود العشـوائيه العام :\n\n"
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:') 
-if #AlRdod == 0 then 
-message = message .."📛| لا توجد ردود عشوائيه مضافه !\n"
-else
-for k,v in pairs(AlRdod) do
-local incrr = redis:scard(lhb..":ReplayRandom:"..v) 
-message = message..k..'- ['..v..'] ⋙ •⊱ {*'..incrr..'*} ⊰• رد\n'
-end
-end
-return message.."\n"
-end
-
-----=================================|نهايه كود الرد العشوائي العام|===============================================
 
 
 if MsgText[1]=="اضف رد" and msg.GroupActive then
@@ -3277,6 +3194,43 @@ sendMsg(msg.chat_id_,msg.id_,"📭╿تم تغير اسم البوت  ✋🏿\n�
 return false
 end
 
+if redis:get(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد لكل المجموعات
+if not redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال كلمه الرد لكل المجموعات
+redis:hdel(lhb..'replay_photo:group:',msg.text)
+redis:hdel(lhb..'replay_voice:group:',msg.text)
+redis:hdel(lhb..'replay_animation:group:',msg.text)
+redis:hdel(lhb..'replay_audio:group:',msg.text)
+redis:hdel(lhb..'replay_sticker:group:',msg.text)
+redis:hdel(lhb..'replay_video:group:',msg.text)
+redis:setex(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
+return sendMsg(msg.chat_id_,msg.id_,"📜╿جيد , يمكنك الان ارسال جوا ب الردالعام \n🔛╽[[ نص,صوره,فيديو,متحركه,بصمه,اغنيه ]]\n✓")
+end
+end
+
+if redis:get(lhb..'delrdall:'..msg.sender_user_id_) then
+redis:del(lhb..'delrdall:'..msg.sender_user_id_)
+local names = redis:hget(lhb..'replay:all',msg.text)
+local photo =redis:hget(lhb..'replay_photo:group:',msg.text)
+local voice = redis:hget(lhb..'replay_voice:group:',msg.text)
+local animation = redis:hget(lhb..'replay_animation:group:',msg.text)
+local audio = redis:hget(lhb..'replay_audio:group:',msg.text)
+local sticker = redis:hget(lhb..'replay_sticker:group:',msg.text)
+local video = redis:hget(lhb..'replay_video:group:',msg.text)
+if not (names or photo or voice or animation or audio or sticker or video) then
+return sendMsg(msg.chat_id_,msg.id_,'💬*│*هذا الرد ليس مضاف في قائمه الردود 📛')
+else
+redis:hdel(lhb..'replay:all',msg.text)
+redis:hdel(lhb..'replay_photo:group:',msg.text)
+redis:hdel(lhb..'replay_voice:group:',msg.text)
+redis:hdel(lhb..'replay_audio:group:',msg.text)
+redis:hdel(lhb..'replay_animation:group:',msg.text)
+redis:hdel(lhb..'replay_sticker:group:',msg.text)
+redis:hdel(lhb..'replay_video:group:',msg.text)
+return sendMsg(msg.chat_id_,msg.id_,'('..Flter_Markdown(msg.text)..')\n  ✓ تم مسح الرد 🚀 ')
+end 
+end 
+
+
 if redis:get(lhb..'text_sudo:witting'..msg.sender_user_id_) then -- استقبال كليشه المطور
 redis:del(lhb..'text_sudo:witting'..msg.sender_user_id_) 
 redis:set(lhb..':TEXT_SUDO',Flter_Markdown(msg.text))
@@ -3466,52 +3420,9 @@ end
 if not msg.GroupActive then return false end
 if msg.text then
 
---=============================================================================================================================
-if msg.SudoUser and msg.text and redis:get(lhb..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_) then 
-if not redis:get(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_) then  -- كلمه الرد
-if utf8.len(msg.text) > 25 then return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه كلمه الرد باكثر من 25 حرف \n❕") end
-redis:setex(lhb..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:setex(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_,1400,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,"📜¦ جيد , يمكنك الان ارسال جواب الرد المتعدد العام \n🔛¦ [[ نص,صوره,فيديو,متحركه,بصمه,اغنيه,ملف ]] \n\n علما ان الاختصارات كالاتي : \n \n{الاسم} : لوضع اسم المستخدم\n{الايدي} : لوضع ايدي المستخدم\n{المعرف} : لوضع معرف المستخدم \n{الرتبه} : لوضع نوع رتبه المستخدم \n{التفاعل} : لوضع تفاعل المستخدم \n{الرسائل} : لاضهار عدد الرسائل \n{النقاط} : لاضهار عدد النقاط \n{التعديل} : لاضهار عدد السحكات \n{البوت} : لاضهار اسم البوت\n{المطور} : لاضهار معرف المطور الاساسي\n\n〽️| يمكنك اضافه 10 ردود متعدد كحد اقصى  \n➼")
-end
-end
-
-
-
-if  msg.SudoUser and msg.text and redis:get(lhb..':DelrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_) then
-redis:del(lhb..':DelrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_)
-local DelRd = redis:del(lhb..':ReplayRandom:'..msg.text) 
-if DelRd == 0 then 
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* هذا الرد ليس مضاف في الردود العشوائيه 📛')
-end
-redis:del(lhb..':caption_replay:Random:'..msg.text) 
-redis:srem(lhb..':KlmatRRandom:',msg.text) 
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* تم حذف الرد بنجاح \n✓')
-end
---=============================================================================================================================
-
-
-if not msg.GroupActive then return false end
-if msg.text then
-
-if redis:get(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد للمجموعه فقط
-
-if not redis:get(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_) then  -- كلمه الرد
-if utf8.len(msg.text) > 25 then 
-return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه كلمه الرد باكثر من 25 حرف \n❕")
-end
-redis:setex(lhb..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:setex(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_,1400,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,"📜¦ جيد , يمكنك الان ارسال جواب الرد المتعدد العام \n🔛¦ [[ نص,صوره,فيديو,متحركه,بصمه,اغنيه,ملف ]] \n\n علما ان الاختصارات كالاتي : \n \n{الاسم} : لوضع اسم المستخدم\n{الايدي} : لوضع ايدي المستخدم\n{المعرف} : لوضع معرف المستخدم \n{الرتبه} : لوضع نوع رتبه المستخدم \n{التفاعل} : لوضع تفاعل المستخدم \n{الرسائل} : لاضهار عدد الرسائل \n{النقاط} : لاضهار عدد النقاط \n{التعديل} : لاضهار عدد السحكات \n{البوت} : لاضهار اسم البوت\n{المطور} : لاضهار معرف المطور الاساسي\n\n〽️| يمكنك اضافه 10 ردود متعدد كحد اقصى  \n➼")
-end
-end
-
-
 if redis:get(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد للمجموعه فقط
+
 if not redis:get(lhb..'replay1'..msg.chat_id_..msg.sender_user_id_) then  -- كلمه الرد
-if utf8.len(msg.text) > 25 then 
-return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه كلمه الرد باكثر من 25 حرف \n❕")
-end
 redis:hdel(lhb..'replay:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_photo:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_voice:group:'..msg.chat_id_,msg.text)
@@ -3520,20 +3431,10 @@ redis:hdel(lhb..'replay_audio:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_sticker:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_video:group:'..msg.chat_id_,msg.text)
 redis:setex(lhb..'replay1'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,"📜¦ جيد , يمكنك الان ارسال جواب الرد \n🔛¦ [[ نص,صوره,فيديو,متحركه,بصمه,اغنيه,ملف ]] \n\n علما ان الاختصارات كالاتي : \n \n{الاسم} : لوضع اسم المستخدم\n{الايدي} : لوضع ايدي المستخدم\n{المعرف} : لوضع معرف المستخدم \n{الرتبه} : لوضع نوع رتبه المستخدم \n{التفاعل} : لوضع تفاعل المستخدم \n{الرسائل} : لاضهار عدد الرسائل \n{النقاط} : لاضهار عدد النقاط \n{التعديل} : لاضهار عدد السحكات \n{البوت} : لاضهار اسم البوت\n{المطور} : لاضهار معرف المطور الاساسي\n➼")
+return sendMsg(msg.chat_id_,msg.id_,"📜╿جيد , يمكنك الان ارسال جواب الرد \n🔛╽[[ نص,صوره,فيديو,متحركه,بصمه,اغنيه ]]\n✓")
 end
 end
 
-if msg.text and redis:get(lhb..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_) then
-redis:del(lhb..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_)
-local DelRd = redis:del(lhb..':ReplayRandom:'..msg.chat_id_..":"..msg.text) 
-if DelRd == 0 then 
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* هذا الرد ليس مضاف في الردود العشوائيه 📛')
-end
-redis:del(lhb..':caption_replay:Random:'..msg.chat_id_..msg.text) 
-redis:srem(lhb..':KlmatRRandom:'..msg.chat_id_,msg.text) 
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* تم حذف الرد بنجاح \n✓')
-end
 if redis:get(lhb..'delrd:'..msg.sender_user_id_) then
 redis:del(lhb..'delrd:'..msg.sender_user_id_)
 local names 	= redis:hget(lhb..'replay:'..msg.chat_id_,msg.text)
@@ -3541,17 +3442,15 @@ local photo 	= redis:hget(lhb..'replay_photo:group:'..msg.chat_id_,msg.text)
 local voice 	= redis:hget(lhb..'replay_voice:group:'..msg.chat_id_,msg.text)
 local animation = redis:hget(lhb..'replay_animation:group:'..msg.chat_id_,msg.text)
 local audio 	= redis:hget(lhb..'replay_audio:group:'..msg.chat_id_,msg.text)
-local files 	= redis:hget(lhb..'replay_files:group:'..msg.chat_id_,msg.text)
 local sticker 	= redis:hget(lhb..'replay_sticker:group:'..msg.chat_id_,msg.text)
 local video 	= redis:hget(lhb..'replay_video:group:'..msg.chat_id_,msg.text)
-if not (names or photo or voice or animation or audio or files or sticker or video) then
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* هذا الرد ليس مضاف في قائمه الردود 📛')
+if not (names or photo or voice or animation or audio or sticker or video) then
+return sendMsg(msg.chat_id_,msg.id_,'💬*│*هذا الرد ليس مضاف في قائمه الردود 📛')
 else
 redis:hdel(lhb..'replay:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_photo:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_voice:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_audio:group:'..msg.chat_id_,msg.text)
-redis:hdel(lhb..'replay_files:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_animation:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_sticker:group:'..msg.chat_id_,msg.text)
 redis:hdel(lhb..'replay_video:group:'..msg.chat_id_,msg.text)
@@ -3560,47 +3459,6 @@ end
 end
 
 end
-if redis:get(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد لكل المجموعات
-if not redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال كلمه الرد لكل المجموعات
-if utf8.len(msg.text) > 25 then 
-return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه كلمه الرد باكثر من 25 حرف \n❕")
-end
-redis:hdel(lhb..'replay_photo:group:',msg.text)
-redis:hdel(lhb..'replay_voice:group:',msg.text)
-redis:hdel(lhb..'replay_animation:group:',msg.text)
-redis:hdel(lhb..'replay_audio:group:',msg.text)
-redis:hdel(lhb..'replay_sticker:group:',msg.text)
-redis:hdel(lhb..'replay_video:group:',msg.text)
-redis:hdel(lhb..'replay_files:group:',msg.text)
-redis:setex(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,"📜¦ جيد , يمكنك الان ارسال جوا ب الردالعام \n🔛¦ [[ نص,صوره,فيديو,متحركه,بصمه,اغنيه,ملف ]] ✓\n\n\n علما ان الاختصارات كالاتي : \n \n{الاسم} : لوضع اسم المستخدم\n{الايدي} : لوضع ايدي المستخدم\n{المعرف} : لوضع معرف المستخدم \n{الرتبه} : لوضع نوع رتبه المستخدم \n{التفاعل} : لوضع تفاعل المستخدم \n{الرسائل} : لاضهار عدد الرسائل \n{النقاط} : لاضهار عدد النقاط \n{التعديل} : لاضهار عدد السحكات \n{البوت} : لاضهار اسم البوت\n{المطور} : لاضهار معرف المطور الاساسي\n➼")
-end
-end
-
-if redis:get(lhb..'delrdall:'..msg.sender_user_id_) then
-redis:del(lhb..'delrdall:'..msg.sender_user_id_)
-local names = redis:hget(lhb..'replay:all',msg.text)
-local photo =redis:hget(lhb..'replay_photo:group:',msg.text)
-local voice = redis:hget(lhb..'replay_voice:group:',msg.text)
-local animation = redis:hget(lhb..'replay_animation:group:',msg.text)
-local audio = redis:hget(lhb..'replay_audio:group:',msg.text)
-local sticker = redis:hget(lhb..'replay_sticker:group:',msg.text)
-local video = redis:hget(lhb..'replay_video:group:',msg.text)
-local file = redis:hget(lhb..'replay_files:group:',msg.text)
-if not (names or photo or voice or animation or audio or sticker or video or file) then
-return sendMsg(msg.chat_id_,msg.id_,'🛑*¦* هذا الرد ليس مضاف في قائمه الردود 📛')
-else
-redis:hdel(lhb..'replay:all',msg.text)
-redis:hdel(lhb..'replay_photo:group:',msg.text)
-redis:hdel(lhb..'replay_voice:group:',msg.text)
-redis:hdel(lhb..'replay_audio:group:',msg.text)
-redis:hdel(lhb..'replay_animation:group:',msg.text)
-redis:hdel(lhb..'replay_sticker:group:',msg.text)
-redis:hdel(lhb..'replay_video:group:',msg.text)
-redis:hdel(lhb..'replay_files:group:',msg.text)
-return sendMsg(msg.chat_id_,msg.id_,'('..Flter_Markdown(msg.text)..')\n  ✓ تم مسح الرد 🚀 ')
-end 
-end 
 
 if msg.pinned then
 print(" -- pinned -- ")
@@ -4622,9 +4480,9 @@ return sendMsg(msg.chat_id_,msg.id_,"[انت منشئ المجموعه](https://
 elseif msg.Director then 
 return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
 elseif msg.Admin then 
-return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
+return sendMsg(msg.chat_id_,msg.id_,"انت دخلت عبر الرابط")
 else 
-return sendMsg(msg.chat_id_,msg.id_,"[انت دخلت عبر الرابط](https://t.me/ASTORHBOTS)")
+return sendMsg(msg.chat_id_,msg.id_,"انت دخلت عبر الرابط")
 end
 
 
@@ -4900,14 +4758,6 @@ end
 
 return {
 lhb = {
-"^(اضف رد عشوائي)$",
-"^(مسح رد عشوائي)$",
-"^(مسح الردود العشوائيه)$",
-"^(الردود العشوائيه)$",
-"^(اضف رد عشوائي عام)$",
-"^(مسح رد عشوائي عام)$",
-"^(مسح الردود العشوائيه العامه)$",
-"^(الردود العشوائيه العام)$",
 "^(مسح قائمه الرتب)$",
 "^(مسح الرتبه)$",
 "^(تغير الرتبه)$",
