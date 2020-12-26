@@ -2453,53 +2453,6 @@ redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملصق للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
 end  
 end
---====================== Reply All Groups =====================================
-if redis:get(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then
-local klma = redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_)
-if msg.content_.caption_ then redis:hset(lhb..':caption_replay:'..msg.chat_id_,klma,msg.content_.caption_) end
-if msg.text then
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-if utf8.len(msg.text) > 4000 then 
-return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه جواب الرد باكثر من 4000 حرف تم الغاء الامر\n❕")
-end
-redis:hset(lhb..'replay:all',klma,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,'(['..klma..'])\n  ✓ تم اضافت الرد لكل المجموعات 🚀 ')
-elseif msg.content_.ID == "MessagePhoto" then 
-if msg.content_.photo_.sizes_[3] then 
-photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
-else 
-photo_id = msg.content_.photo_.sizes_[0].photo_.persistent_id_
-end
-redis:hset(lhb..'replay_photo:group:',klma,photo_id)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه صوره للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوره الاتيه .')
-elseif msg.content_.ID == "MessageVoice" then
-redis:hset(lhb..'replay_voice:group:',klma,msg.content_.voice_.voice_.persistent_id_)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه بصمه صوت للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لسماع البصمه الاتيه .')
-elseif msg.content_.ID == "MessageAnimation" then
-redis:hset(lhb..'replay_animation:group:',klma,msg.content_.animation_.animation_.persistent_id_)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه متحركه للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوره الاتيه .')
-elseif msg.content_.ID == "MessageVideo" then
-redis:hset(lhb..'replay_video:group:',klma,msg.content_.video_.video_.persistent_id_)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه فيديو للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الفيديو الاتي .')
-elseif msg.content_.ID == "MessageAudio" then
-redis:hset(lhb..'replay_audio:group:',klma,msg.content_.audio_.audio_.persistent_id_)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه للصوت للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوت الاتي .')
-elseif msg.content_.ID == "MessageDocument" then
-redis:hset(lhb..'replay_files:group:',klma,msg.content_.document_.document_.persistent_id_ )
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملف للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار ملف الاتي .')  
-elseif msg.content_.ID == "MessageSticker" then
-redis:hset(lhb..'replay_sticker:group:',klma,msg.content_.sticker_.sticker_.persistent_id_)
-redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملصق للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
-end  
-end
---====================== Requst UserName Of Channel For ForceSub ==============
 
 if MsgText[1]=="اضف رد" and msg.GroupActive then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
