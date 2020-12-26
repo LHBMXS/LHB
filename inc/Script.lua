@@ -3277,43 +3277,6 @@ sendMsg(msg.chat_id_,msg.id_,"📭╿تم تغير اسم البوت  ✋🏿\n�
 return false
 end
 
-if redis:get(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال الرد لكل المجموعات
-if not redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then -- استقبال كلمه الرد لكل المجموعات
-redis:hdel(lhb..'replay_photo:group:',msg.text)
-redis:hdel(lhb..'replay_voice:group:',msg.text)
-redis:hdel(lhb..'replay_animation:group:',msg.text)
-redis:hdel(lhb..'replay_audio:group:',msg.text)
-redis:hdel(lhb..'replay_sticker:group:',msg.text)
-redis:hdel(lhb..'replay_video:group:',msg.text)
-redis:setex(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_,300,msg.text)
-return sendMsg(msg.chat_id_,msg.id_,"📜╿جيد , يمكنك الان ارسال جوا ب الردالعام \n🔛╽[[ نص,صوره,فيديو,متحركه,بصمه,اغنيه ]]\n✓")
-end
-end
-
-if redis:get(lhb..'delrdall:'..msg.sender_user_id_) then
-redis:del(lhb..'delrdall:'..msg.sender_user_id_)
-local names = redis:hget(lhb..'replay:all',msg.text)
-local photo =redis:hget(lhb..'replay_photo:group:',msg.text)
-local voice = redis:hget(lhb..'replay_voice:group:',msg.text)
-local animation = redis:hget(lhb..'replay_animation:group:',msg.text)
-local audio = redis:hget(lhb..'replay_audio:group:',msg.text)
-local sticker = redis:hget(lhb..'replay_sticker:group:',msg.text)
-local video = redis:hget(lhb..'replay_video:group:',msg.text)
-if not (names or photo or voice or animation or audio or sticker or video) then
-return sendMsg(msg.chat_id_,msg.id_,'💬*│*هذا الرد ليس مضاف في قائمه الردود 📛')
-else
-redis:hdel(lhb..'replay:all',msg.text)
-redis:hdel(lhb..'replay_photo:group:',msg.text)
-redis:hdel(lhb..'replay_voice:group:',msg.text)
-redis:hdel(lhb..'replay_audio:group:',msg.text)
-redis:hdel(lhb..'replay_animation:group:',msg.text)
-redis:hdel(lhb..'replay_sticker:group:',msg.text)
-redis:hdel(lhb..'replay_video:group:',msg.text)
-return sendMsg(msg.chat_id_,msg.id_,'('..Flter_Markdown(msg.text)..')\n  ✓ تم مسح الرد 🚀 ')
-end 
-end 
-
-
 if redis:get(lhb..'text_sudo:witting'..msg.sender_user_id_) then -- استقبال كليشه المطور
 redis:del(lhb..'text_sudo:witting'..msg.sender_user_id_) 
 redis:set(lhb..':TEXT_SUDO',Flter_Markdown(msg.text))
