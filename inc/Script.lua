@@ -2452,7 +2452,6 @@ redis:hset(lhb..'replay_sticker:group:'..msg.chat_id_,klma,msg.content_.sticker_
 redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملصق للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
 end  
-
 end
 --====================== Reply All Groups =====================================
 if redis:get(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lhb..'allreplay:'..msg.chat_id_..msg.sender_user_id_) then
@@ -2497,12 +2496,9 @@ return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملف للرد ال
 elseif msg.content_.ID == "MessageSticker" then
 redis:hset(lhb..'replay_sticker:group:',klma,msg.content_.sticker_.sticker_.persistent_id_)
 redis:del(lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,'??¦ تم اضافه ملصق للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
+return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملصق للرد العام ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
 end  
-
 end
-
-if msg.text then
 --====================== Requst UserName Of Channel For ForceSub ==============
 
 if MsgText[1]=="اضف رد" and msg.GroupActive then
