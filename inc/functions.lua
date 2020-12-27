@@ -2,11 +2,11 @@
 ─▄█▀█▄──▄███▄─
 ▐█░██████████▌
 ─██▒█████████─
-──▀████████▀──│@ASTORH
+──▀████████▀──│@Hskh56
 ─────▀██▀─────
-│LHB ‿ @ASTORHBOTS
-تم تطوير وبرمجة السورس من قبل محمد اليافعي
-│@LSLHB ‿ @AST0RH
+│ＭᎯẊ ‿ @uop70
+تم تطوير وبرمجة السورس من قبل حسن العراقي
+│@Hskh56 ‿ @uop70 
 #-------------------------------------------------------------------
 ]]
 
@@ -301,25 +301,6 @@ end
 
 
 --================================{{  ExportChatInviteLink  }} ===================================
-if cmd == "upMshrf" then
-redis:hset(lhb..'username:'..UserID,'username',Resolv)
-redis:setex(lhb..":uploadingsomeon:"..ChatID..msg.sender_user_id_,500,NameUser)
-redis:setex(lhb..":uploadingsomeon2:"..ChatID..msg.sender_user_id_,500,UserID)
-sendMsg(ChatID,MsgID,"📇|  » حسننا الان ارسل صلاحيات المشرف :\n\n|1- صلاحيه تغيير المعلومات\n|2- صلاحيه حذف الرسائل\n|3- صلاحيه دعوه مستخدمين\n|4- صلاحيه حظر وتقيد المستخدمين \n|5- صلاحيه تثبيت الرسائل \n|6- صلاحيه رفع مشرفين اخرين\n\n|[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n|[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸| يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n| 136 الزعيم\n📬") 
-return false
-end
-
-if cmd == "DwonMshrf" then
-ResAdmin = UploadAdmin(ChatID,UserID,"")  
-if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then return sendMsg(ChatID,MsgID,"👤*¦*لا يمكنني تنزيله لانه مرفوع من قبل منشئ اخر \n📛")  end
-redis:srem(lhb..':MONSHA_BOT:'..ChatID,UserID)
-redis:srem(lhb..'owners:'..ChatID,UserID)
-redis:srem(lhb..'admins:'..ChatID,UserID)
-redis:srem(lhb..'whitelist:'..ChatID,UserID)
-sendMsg(ChatID,MsgID,"📮¦ المستخدم  ⋙「 "..NameUser.." 」 \n📋¦ تم تنزيله من مشرفين المجموعه \n✓")
-return false
-end
-
 
 function ExportLink(GroupID)
 local GetLin,res = https.request(ApiToken..'/exportChatInviteLink?chat_id='..GroupID)
@@ -373,6 +354,26 @@ return ApiToken..'/'..JSON.decode(UrlInfo).result.file_path
 end
 
 ----------------------{ End Api Token Bot }-----------------------------
+--================================{{  ExportChatInviteLink  }} ===================================
+if cmd == "upMshrf" then
+redis:hset(lhb..'username:'..UserID,'username',Resolv)
+redis:setex(lhb..":uploadingsomeon:"..ChatID..msg.sender_user_id_,500,NameUser)
+redis:setex(lhb..":uploadingsomeon2:"..ChatID..msg.sender_user_id_,500,UserID)
+sendMsg(ChatID,MsgID,"📇|  » حسننا الان ارسل صلاحيات المشرف :\n\n|1- صلاحيه تغيير المعلومات\n|2- صلاحيه حذف الرسائل\n|3- صلاحيه دعوه مستخدمين\n|4- صلاحيه حظر وتقيد المستخدمين \n|5- صلاحيه تثبيت الرسائل \n|6- صلاحيه رفع مشرفين اخرين\n\n|[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n|[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸| يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n| 136 الزعيم\n📬") 
+return false
+end
+
+if cmd == "DwonMshrf" then
+ResAdmin = UploadAdmin(ChatID,UserID,"")  
+if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then return sendMsg(ChatID,MsgID,"👤*¦*لا يمكنني تنزيله لانه مرفوع من قبل منشئ اخر \n📛")  end
+redis:srem(lhb..':MONSHA_BOT:'..ChatID,UserID)
+redis:srem(lhb..'owners:'..ChatID,UserID)
+redis:srem(lhb..'admins:'..ChatID,UserID)
+redis:srem(lhb..'whitelist:'..ChatID,UserID)
+sendMsg(ChatID,MsgID,"📮¦ المستخدم  ⋙「 "..NameUser.." 」 \n📋¦ تم تنزيله من مشرفين المجموعه \n✓")
+return false
+end
+
 
 ----------------------{ Get Name Bot }-----------------------------
 Bot_Name = redis:get(lhb..":NameBot:")
@@ -612,8 +613,6 @@ end
 function Getrtba(UserID,ChatID)
 if UserID == our_id then 
 var = 'هذا البوت 🙄☝🏿' 
-elseif UserID == 879123322 or UserID == 956794865  then 
-var = 'مـطـور الـسـورس👨🏻‍✈️'
 elseif  UserID == SUDO_ID then
 var = 'مطور اساسي 👨🏻‍✈️' 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then
@@ -1270,8 +1269,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد البو�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك تقييد مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المنشئ\n🛠") 
@@ -1439,8 +1436,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك حظر مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المنشئ\n🛠") 
@@ -1479,8 +1474,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك كتم مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المنشئ\n🛠") 
@@ -1631,8 +1624,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد البو�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك تقييد مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد المنشئ\n🛠") 
@@ -1789,8 +1780,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك حظر مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المنشئ\n🛠") 
@@ -1835,8 +1824,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك كتم مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المنشئ\n🛠") 
@@ -1892,8 +1879,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك طرد مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المنشئ\n🛠") 
@@ -1965,8 +1950,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك تقييد البو�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك طرد مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المنشئ\n🛠") 
@@ -2078,8 +2061,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك حظر مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك حظر المنشئ\n🛠") 
@@ -2103,8 +2084,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك طرد مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك طرد المنشئ\n🛠") 
@@ -2144,8 +2123,6 @@ return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم البوت\n�
 elseif UserID == SUDO_ID then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور الاساسي\n🛠") 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then 
-elseif UserID == 879123322 or UserID == 956794865 then 
-return sendMsg(ChatID,MsgID,"⚜️*¦* لا يمكنك كتم مطور السورس\n🛠") 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المطور\n🛠") 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then 
 return sendMsg(ChatID,MsgID,"🏌‍♂*│*لا يمكنك كتم المنشئ\n🛠") 
