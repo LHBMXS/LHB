@@ -763,8 +763,51 @@ end
 return false
 end
 
+--==============================================================================================================================
+
+
+if MsgText[1] == "رفع مشرف" then
+if not msg.SuperCreator then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
+
+if not MsgText[2] and msg.reply_id then 
+GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg,data)
+if not data.sender_user_id_ then return sendMsg(arg.ChatID,arg.MsgID,"📛*¦* عذرا هذا العضو ليس موجود ضمن المجموعات \n❕") end
+local UserID = data.sender_user_id_
+
+GetUserID(UserID,function(arg,data)
+NameUser = Hyper_Link_Name(data)
+USERNAME = ResolveUserName(data)
+if data.type_.ID == "ChannelChatInfo" then return sendMsg(arg.ChatID,arg.MsgID,"👤*¦* عذرا هذا معرف قناة وليس حساب \n📛") end
+redis:hset(lhb..'username:'..arg.UserID,'username',USERNAME)
+redis:setex(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_,500,NameUser)
+redis:setex(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_,500,arg.UserID)
+sendMsg(arg.ChatID,arg.MsgID,"📇¦  » حسننا الان ارسل صلاحيات المشرف :\n\n¦1- صلاحيه تغيير المعلومات\n¦2- صلاحيه حذف الرسائل\n¦3- صلاحيه دعوه مستخدمين\n¦4- صلاحيه حظر وتقيد المستخدمين \n¦5- صلاحيه تثبيت الرسائل \n¦6- صلاحيه رفع مشرفين اخرين\n\n¦[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n¦[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸¦ يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n¦ 136 الزعيم\n📬") 
+
+end,{ChatID=arg.ChatID,UserID=UserID,MsgID=arg.MsgID})
+end,{ChatID=msg.chat_id_,MsgID=msg.id_})
+
+
+
+elseif MsgText[2] and MsgText[2]:match('@[%a%d_]+') then 
+GetUserName(MsgText[2],function(arg,data)
+if not data.id_ then return sendMsg(arg.ChatID,arg.MsgID,"📛*¦* لآ يوجد عضـو بهہ‌‏ذآ آلمـعرف \n❕") end 
+local UserID = data.id_
+NameUser = Hyper_Link_Name(data)
+if data.type_.ID == "ChannelChatInfo" then return sendMsg(arg.ChatID,arg.MsgID,"👤*¦* عذرا هذا معرف قناة وليس حساب \n📛") end
+redis:hset(lhb..'username:'..UserID,'username',arg.USERNAME)
+redis:setex(lhb..":uploadingsomeon:"..arg.ChatID..msg.sender_user_id_,500,NameUser)
+redis:setex(lhb..":uploadingsomeon2:"..arg.ChatID..msg.sender_user_id_,500,UserID)
+sendMsg(arg.ChatID,arg.MsgID,"📇¦  » حسننا الان ارسل صلاحيات المشرف :\n\n¦1- صلاحيه تغيير المعلومات\n¦2- صلاحيه حذف الرسائل\n¦3- صلاحيه دعوه مستخدمين\n¦4- صلاحيه حظر وتقيد المستخدمين \n¦5- صلاحيه تثبيت الرسائل \n¦6- صلاحيه رفع مشرفين اخرين\n\n¦[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n¦[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸¦ يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n¦ 136 الزعيم\n📬") 
+end,{ChatID=msg.chat_id_,MsgID=msg.id_,USERNAME=MsgText[2]})
+
+elseif MsgText[2] and MsgText[2]:match('^%d+$') then 
+GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="upMshrf"}) 
+end 
+return false
+end
+
 if MsgText[1] == "تنزيل مشرف" then
-if not msg.Director then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
+if not msg.SuperCreator then return "📪¦ هذا الامر يخص {منشئ اساسي,المطور} فقط  \n" end
 
 if not MsgText[2] and msg.reply_id then 
 GetMsgInfo(msg.chat_id_,msg.reply_id,function(arg,data)
@@ -804,6 +847,9 @@ GetUserID(MsgText[2],action_by_id,{msg=msg,cmd="DwonMshrf"})
 end 
 return false
 end
+--==============================================================================================================================
+--==============================================================================================================================
+--====================================================================
 --==============================================================================================================================
 if MsgText[1] == "رفع ادمن" then
 if not msg.Director then return "♦️*│*هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n💥" end
@@ -3252,88 +3298,6 @@ end
 
 if msg.text then
 --====================== Requst UserName Of Channel For ForceSub ==============
-if msg.SuperCreator and redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_) then 
-
-NameUser = redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
-UserID = redis:get(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
-if not msg.text:match("[1234567]") and not msg.text:match("[*]") and not msg.text:match("[*][*]") then
-redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
-redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
-return sendMsg(msg.chat_id_,msg.id_,"📛*¦* تم الغاء الامر , يجب ان يحتوي رسالتك ع ارقام الصلاحيات المعروضه . \n📛")   
-end
-
-Nikname = msg.text:gsub("[1234567]","")
-Nikname = Nikname:gsub("[*]","")
-ResAdmin = UploadAdmin(msg.chat_id_,UserID,msg.text)  
-if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: not enough rights"}' then
-sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا البوت ليس لديه صلاحيه رفع مشرفين في المجموعه \n📛") 
-elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: can\'t remove chat owner"}' then
-sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المنشئ للمجموعه. \n📛") 
-elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then
-sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المشرف مرفوع من قبل منشئ اخر . \n📛") 
-elseif ResAdmin == '{"ok":true,"result":true}' then
-ChangeNikname(msg.chat_id_,UserID,Nikname)
-redis:sadd(lhb..'admins:'..msg.chat_id_,UserID)
-local trues = "✓"
-local falses = "✖️"
-
-infochange = falses
-infochange1 = falses
-infochange2 = falses
-infochange3 = falses
-infochange4 = falses
-infochange5 = falses
-if msg.text:match(1) then
-infochange = trues
-end
-if msg.text:match(2) then
-infochange1 = trues
-end
-if msg.text:match(3) then
-infochange2 = trues
-end
-if msg.text:match(4) then
-infochange3 = trues
-end
-if msg.text:match(5) then
-infochange4 = trues
-end
-if msg.text:match(6) then
-infochange5 = trues
-end
-if msg.text:match("[*][*]") then
-infochange = trues
-infochange1 = trues
-infochange2 = trues
-infochange3 = trues
-infochange4 = trues
-infochange5 = trues
-elseif msg.text:match("[*]") then
-infochange = trues
-infochange1 = trues
-infochange2 = trues
-infochange3 = trues
-infochange4 = trues
-end
-
-if Nikname == "" then Nikname = "بدون" end
-sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」 صلاحياته : \n\n"
-.."📱¦ تغيير معلومات المجموعه : "..infochange.."\n"
-.."🗑¦ صلاحيه حذف الرسائل : "..infochange1.."\n"
-.."📬¦ صلاحيه دعوه مستخدمين : "..infochange2.."\n"
-.."🔑¦ صلاحيه حظر وتقيد المستخدمين : "..infochange3.."\n"
-.."📌¦ صلاحيه تثبيت الرسائل : "..infochange4.."\n"
-.."📤¦ صلاحيه رفع مشرفين اخرين : "..infochange5.."\n\n"
-.."📋¦ الـكـنـيـة : ["..Nikname.."]\n"
-.."\n✓") 
-else
-sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」  حدث خطأ ما  \n✓") 
-end
-redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
-redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
-return false
-end
-
 local Text = msg.text
 local UserID =  msg.sender_user_id_
 if msg.Creator then
@@ -3656,7 +3620,88 @@ end
 return sendMsg(msg.chat_id_,msg.id_,'📜*╿*تم اذاعه التوجيه بنجاح 🏌🏻\n🗣*│*للمـجمـوعآت » ❴ *'..#groups..'* ❵\n👥*╽*للخآص » ❴ '..#pv..' ❵\n✓')			
 end
 
- 
+ if msg.SuperCreator and redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_) then 
+
+NameUser = redis:get(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+UserID = redis:get(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+if not msg.text:match("[1234567]") and not msg.text:match("[*]") and not msg.text:match("[*][*]") then
+redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+return sendMsg(msg.chat_id_,msg.id_,"📛*¦* تم الغاء الامر , يجب ان يحتوي رسالتك ع ارقام الصلاحيات المعروضه . \n📛")   
+end
+
+Nikname = msg.text:gsub("[1234567]","")
+Nikname = Nikname:gsub("[*]","")
+ResAdmin = UploadAdmin(msg.chat_id_,UserID,msg.text)  
+if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: not enough rights"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا البوت ليس لديه صلاحيه رفع مشرفين في المجموعه \n📛") 
+elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: can\'t remove chat owner"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المنشئ للمجموعه. \n📛") 
+elseif ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then
+sendMsg(msg.chat_id_,msg.id_,"📛*¦* عذرا لا يمكنني التحكم بصلاحيات المشرف مرفوع من قبل منشئ اخر . \n📛") 
+elseif ResAdmin == '{"ok":true,"result":true}' then
+ChangeNikname(msg.chat_id_,UserID,Nikname)
+redis:sadd(lhb..'admins:'..msg.chat_id_,UserID)
+local trues = "✓"
+local falses = "✖️"
+
+infochange = falses
+infochange1 = falses
+infochange2 = falses
+infochange3 = falses
+infochange4 = falses
+infochange5 = falses
+if msg.text:match(1) then
+infochange = trues
+end
+if msg.text:match(2) then
+infochange1 = trues
+end
+if msg.text:match(3) then
+infochange2 = trues
+end
+if msg.text:match(4) then
+infochange3 = trues
+end
+if msg.text:match(5) then
+infochange4 = trues
+end
+if msg.text:match(6) then
+infochange5 = trues
+end
+if msg.text:match("[*][*]") then
+infochange = trues
+infochange1 = trues
+infochange2 = trues
+infochange3 = trues
+infochange4 = trues
+infochange5 = trues
+elseif msg.text:match("[*]") then
+infochange = trues
+infochange1 = trues
+infochange2 = trues
+infochange3 = trues
+infochange4 = trues
+end
+
+if Nikname == "" then Nikname = "بدون" end
+sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」 صلاحياته : \n\n"
+.."📱¦ تغيير معلومات المجموعه : "..infochange.."\n"
+.."🗑¦ صلاحيه حذف الرسائل : "..infochange1.."\n"
+.."📬¦ صلاحيه دعوه مستخدمين : "..infochange2.."\n"
+.."🔑¦ صلاحيه حظر وتقيد المستخدمين : "..infochange3.."\n"
+.."📌¦ صلاحيه تثبيت الرسائل : "..infochange4.."\n"
+.."📤¦ صلاحيه رفع مشرفين اخرين : "..infochange5.."\n\n"
+.."📋¦ الـكـنـيـة : ["..Nikname.."]\n"
+.."\n✓") 
+else
+sendMsg(msg.chat_id_,msg.id_,"📮¦ المشرف  ⋙ 「 "..NameUser.." 」  حدث خطأ ما  \n✓") 
+end
+redis:del(lhb..":uploadingsomeon:"..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..":uploadingsomeon2:"..msg.chat_id_..msg.sender_user_id_)
+return false
+end
+
 
 if msg.text and msg.type == "channel" then
 if msg.text:match("^"..Bot_Name.." غادر$") and (msg.SudoBase or msg.SudoBase or msg.Director) then
