@@ -2561,7 +2561,7 @@ end
 
 
 if redis:get(lhb..'welc'..msg.chat_id_) == 'on' then
-if msg.content_.ID == 'MessageChatAddMembers' then
+if msg.content_.ID == 'MessageChatJoinByLink' then
 function WelcomeByAddUser(BlaCk,Diamond)
 local function setlinkgp(td,mrr619)
 function gps(arg,data)
