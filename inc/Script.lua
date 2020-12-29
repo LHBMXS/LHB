@@ -1922,12 +1922,12 @@ lhb..'delrdall:'..msg.sender_user_id_,
 lhb..'text_sudo:witting'..msg.sender_user_id_,
 lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_,
 lhb..'addrd_all:'..msg.chat_id_..msg.sender_user_id_)
-boss..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,
-boss..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_,
-boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_,
-boss..'addrdRandom1:'..msg.sender_user_id_,
-boss..'addrdRandom:'..msg.sender_user_id_,
-boss..'replay1Random'..msg.sender_user_id_).
+lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,
+lhb..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_,
+lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_,
+lhb..'addrdRandom1:'..msg.sender_user_id_,
+lhb..'addrdRandom:'..msg.sender_user_id_,
+lhb..'replay1Random'..msg.sender_user_id_).
 return '📬*│* تم آلغآء آلآمـر بنجآح \n🌿'
 end  
 
@@ -2844,38 +2844,38 @@ end
 ----=================================| كود الرد العشوائي المجموعات|===============================================
 if MsgText[1]=="اضف رد عشوائي" and msg.GroupActive then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(boss..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:del(boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
+redis:setex(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
+redis:del(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
 return "📭¦ حسننا ,  الان ارسل كلمه الرد للعشوائي \n-"
 end
 
 
 if MsgText[1]== "مسح رد عشوائي" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(boss..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_,300,true)
+redis:setex(lhb..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_,300,true)
 return "📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الرد العشوائي لمسحها 🍃"
 end
 
 
 if MsgText[1] == "مسح الردود العشوائيه" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
-local AlRdod = redis:smembers(boss..':KlmatRRandom:'..msg.chat_id_) 
+local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
 if #AlRdod == 0 then return "🛑*¦* الردود العشوائيه محذوفه بالفعل\n✓" end
-for k,v in pairs(AlRdod) do redis:del(boss..':ReplayRandom:'..msg.chat_id_..":"..v) redis:del(boss..':caption_replay:Random:'..msg.chat_id_..v) 
+for k,v in pairs(AlRdod) do redis:del(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) redis:del(lhb..':caption_replay:Random:'..msg.chat_id_..v) 
 end
-redis:del(boss..':KlmatRRandom:'..msg.chat_id_) 
+redis:del(lhb..':KlmatRRandom:'..msg.chat_id_) 
 return "🙋🏼‍♂️*¦* أهلا عزيزي "..msg.TheRankCmd.."  \n🛑*¦* تم مسح جميع الردود العشوائيه\n✓"
 end
 
 if MsgText[1] == "الردود العشوائيه" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
 message = "📜| الردود العشـوائيه :\n\n"
-local AlRdod = redis:smembers(boss..':KlmatRRandom:'..msg.chat_id_) 
+local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
 if #AlRdod == 0 then 
 message = message .."📛| لا توجد ردود عشوائيه مضافه !\n"
 else
 for k,v in pairs(AlRdod) do
-local incrr = redis:scard(boss..':ReplayRandom:'..msg.chat_id_..":"..v) 
+local incrr = redis:scard(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) 
 message = message..k..'- ['..v..'] ⋙ •⊱ {*'..incrr..'*} ⊰• رد\n'
 end
 end
@@ -2885,33 +2885,33 @@ end
 function CaptionInsert(msg,input,public)
 if msg.content_ and msg.content_.caption_ then 
 if public then
-redis:hset(boss..':caption_replay:Random:'..msg.klma,input,msg.content_.caption_) 
+redis:hset(lhb..':caption_replay:Random:'..msg.klma,input,msg.content_.caption_) 
 else
-redis:hset(boss..':caption_replay:Random:'..msg.chat_id_..msg.klma,input,msg.content_.caption_) 
+redis:hset(lhb..':caption_replay:Random:'..msg.chat_id_..msg.klma,input,msg.content_.caption_) 
 end
 end
 end
 
 --====================== Reply Random Public =====================================
-if redis:get(boss..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_) and redis:get(boss..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_) then
-klma = redis:get(boss..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
+if redis:get(lhb..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_) then
+klma = redis:get(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
 msg.klma = klma
 if msg.text == "تم" then
-redis:del(boss..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_)
-redis:del(boss..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_)
 sendMsg(msg.chat_id_,msg.id_,'♻️¦ تم اضافه رد متعدد عشوائي بنجاح ✓\n⚜️¦ يمكنك ارسال (['..klma..']) لاضهار الردود العشوائيه .')
-redis:del(boss..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
 return false
 end
 
-local CountRdod = redis:scard(boss..':ReplayRandom:'..klma) or 1
+local CountRdod = redis:scard(lhb..':ReplayRandom:'..klma) or 1
 local CountRdod2 = 10 - tonumber(CountRdod)
 local CountRdod = 9 - tonumber(CountRdod)
 if CountRdod2 == 0 then 
-redis:del(boss..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_)
-redis:del(boss..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom1Public:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandomPublic:'..msg.chat_id_..msg.sender_user_id_)
 sendMsg(msg.chat_id_,msg.id_,'🚸¦ وصلت الحد الاقصى لعدد الردود ✓\n⚜️¦ تم اضافه الرد (['..klma..']) للردود العشوائيه .')
-redis:del(boss..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
 return false
 end
 if msg.text then 
@@ -2919,8 +2919,8 @@ if utf8.len(msg.text) > 4000 then
 return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه جواب الرد باكثر من 4000 حرف تم الغاء الامر\n❕")
 end
 CaptionInsert(msg,msg.text,true)
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Text:"..msg.text) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Text:"..msg.text) 
 return sendMsg(msg.chat_id_,msg.id_,'تم ادراج الرد باقي '..CountRdod..'\n تم ادراج الرد ارسل رد اخر او ارسل {تم} \n✓')
 elseif msg.content_.ID == "MessagePhoto" then
 if msg.content_.photo_.sizes_[3] then 
@@ -2928,38 +2928,38 @@ photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else 
 photo_id = msg.content_.photo_.sizes_[0].photo_.persistent_id_
 end
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Photo:"..photo_id) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Photo:"..photo_id) 
 CaptionInsert(msg,photo_id,true)
 return sendMsg(msg.chat_id_,msg.id_,'🌃¦ تم ادراج صور للرد باقي '..CountRdod..' ✓\n🌃¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageVoice" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Voice:"..msg.content_.voice_.voice_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Voice:"..msg.content_.voice_.voice_.persistent_id_) 
 CaptionInsert(msg,msg.content_.voice_.voice_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'🎤¦ تم ادراج البصمه للرد باقي '..CountRdod..' ✓\n🎤¦  ارسل رد اخر او ارسل {تم}')
 elseif msg.content_.ID == "MessageAnimation" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Animation:"..msg.content_.animation_.animation_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Animation:"..msg.content_.animation_.animation_.persistent_id_) 
 CaptionInsert(msg,msg.content_.animation_.animation_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'🎉¦ تم ادراج المتحركه للرد باقي '..CountRdod..' ✓\n🎉¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageVideo" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Video:"..msg.content_.video_.video_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Video:"..msg.content_.video_.video_.persistent_id_) 
 CaptionInsert(msg,msg.content_.video_.video_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'🎥¦ تم ادراج الفيديو للرد باقي '..CountRdod..' ✓\n🎥¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageAudio" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Audio:"..msg.content_.audio_.audio_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Audio:"..msg.content_.audio_.audio_.persistent_id_) 
 CaptionInsert(msg,msg.content_.audio_.audio_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'🎧¦ تم ادراج الصوت للرد باقي '..CountRdod..' ✓\n🎧¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageDocument" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Document:"..msg.content_.document_.document_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Document:"..msg.content_.document_.document_.persistent_id_) 
 CaptionInsert(msg,msg.content_.document_.document_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'📄¦ تم ادراج الملف للرد باقي '..CountRdod..' ✓\n📄¦ ارسل رد اخر او ارسل {تم} .')  
 elseif msg.content_.ID == "MessageSticker" then
-redis:sadd(boss..':KlmatRRandom:',klma) 
-redis:sadd(boss..':ReplayRandom:'..klma,":Sticker:"..msg.content_.sticker_.sticker_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:',klma) 
+redis:sadd(lhb..':ReplayRandom:'..klma,":Sticker:"..msg.content_.sticker_.sticker_.persistent_id_) 
 CaptionInsert(msg,msg.content_.sticker_.sticker_.persistent_id_,true)
 return sendMsg(msg.chat_id_,msg.id_,'🔖¦ تم ادراج الملصق للرد باقي '..CountRdod..' ✓\n🔖¦ ارسل رد اخر او ارسل {تم} .')
 end  
@@ -2967,25 +2967,25 @@ end
 end
 --====================== End Reply Random Public =====================================
 --====================== Reply Random Only Group =====================================
-if redis:get(boss..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_) and redis:get(boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_) then
-klma = redis:get(boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
+if redis:get(lhb..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_) then
+klma = redis:get(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
 msg.klma = klma
 if msg.text == "تم" then
-redis:del(boss..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_)
-redis:del(boss..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_)
 sendMsg(msg.chat_id_,msg.id_,'♻️¦ تم اضافه رد متعدد عشوائي بنجاح ✓\n⚜️¦ يمكنك ارسال (['..klma..']) لاضهار الردود العشوائيه .')
-redis:del(boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
 return false
 end
 
-local CountRdod = redis:scard(boss..':ReplayRandom:'..msg.chat_id_..":"..klma) or 1
+local CountRdod = redis:scard(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma) or 1
 local CountRdod2 = 10 - tonumber(CountRdod)
 local CountRdod = 9 - tonumber(CountRdod)
 if CountRdod2 == 0 then 
-redis:del(boss..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_)
-redis:del(boss..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrdRandom:'..msg.chat_id_..msg.sender_user_id_)
 sendMsg(msg.chat_id_,msg.id_,'🚸¦ وصلت الحد الاقصى لعدد الردود ✓\n⚜️¦ تم اضافه الرد (['..klma..']) للردود العشوائيه .')
-redis:del(boss..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
 return false
 end
 if msg.text then 
@@ -2993,8 +2993,8 @@ if utf8.len(msg.text) > 4000 then
 return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه جواب الرد باكثر من 4000 حرف تم الغاء الامر\n❕")
 end
 CaptionInsert(msg,msg.text,false)
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Text:"..msg.text) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Text:"..msg.text) 
 return sendMsg(msg.chat_id_,msg.id_,'تم ادراج الرد باقي '..CountRdod..'\n تم ادراج الرد ارسل رد اخر او ارسل {تم} \n✓')
 elseif msg.content_.ID == "MessagePhoto" then
 if msg.content_.photo_.sizes_[3] then 
@@ -3002,33 +3002,33 @@ photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else 
 photo_id = msg.content_.photo_.sizes_[0].photo_.persistent_id_
 end
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Photo:"..photo_id) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Photo:"..photo_id) 
 CaptionInsert(msg,photo_id,false)
 return sendMsg(msg.chat_id_,msg.id_,'🌃¦ تم ادراج صور للرد باقي '..CountRdod..' ✓\n🌃¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageVoice" then
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Voice:"..msg.content_.voice_.voice_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Voice:"..msg.content_.voice_.voice_.persistent_id_) 
 CaptionInsert(msg,msg.content_.voice_.voice_.persistent_id_,false)
 return sendMsg(msg.chat_id_,msg.id_,'🎤¦ تم ادراج البصمه للرد باقي '..CountRdod..' ✓\n🎤¦  ارسل رد اخر او ارسل {تم}')
 elseif msg.content_.ID == "MessageAnimation" then
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Animation:"..msg.content_.animation_.animation_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Animation:"..msg.content_.animation_.animation_.persistent_id_) 
 CaptionInsert(msg,msg.content_.animation_.animation_.persistent_id_,false)
 return sendMsg(msg.chat_id_,msg.id_,'🎉¦ تم ادراج المتحركه للرد باقي '..CountRdod..' ✓\n🎉¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageVideo" then
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Video:"..msg.content_.video_.video_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Video:"..msg.content_.video_.video_.persistent_id_) 
 CaptionInsert(msg,msg.content_.video_.video_.persistent_id_,false)
 return sendMsg(msg.chat_id_,msg.id_,'🎥¦ تم ادراج الفيديو للرد باقي '..CountRdod..' ✓\n🎥¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageAudio" then
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Audio:"..msg.content_.audio_.audio_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Audio:"..msg.content_.audio_.audio_.persistent_id_) 
 CaptionInsert(msg,msg.content_.audio_.audio_.persistent_id_,false)
 return sendMsg(msg.chat_id_,msg.id_,'🎧¦ تم ادراج الصوت للرد باقي '..CountRdod..' ✓\n🎧¦ ارسل رد اخر او ارسل {تم} .')
 elseif msg.content_.ID == "MessageSticker" then
-redis:sadd(boss..':KlmatRRandom:'..msg.chat_id_,klma) 
-redis:sadd(boss..':ReplayRandom:'..msg.chat_id_..":"..klma,":Sticker:"..msg.content_.sticker_.sticker_.persistent_id_) 
+redis:sadd(lhb..':KlmatRRandom:'..msg.chat_id_,klma) 
+redis:sadd(lhb..':ReplayRandom:'..msg.chat_id_..":"..klma,":Sticker:"..msg.content_.sticker_.sticker_.persistent_id_) 
 CaptionInsert(msg,msg.content_.sticker_.sticker_.persistent_id_,false)
 return sendMsg(msg.chat_id_,msg.id_,'🔖¦ تم ادراج الملصق للرد باقي '..CountRdod..' ✓\n🔖¦ ارسل رد اخر او ارسل {تم} .')
 end  
@@ -3038,15 +3038,15 @@ end
 
 
 --====================== Reply Only Group =====================================
-if redis:get(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_) and redis:get(boss..'replay1'..msg.chat_id_..msg.sender_user_id_) then
-local klma = redis:get(boss..'replay1'..msg.chat_id_..msg.sender_user_id_)
-if msg.content_ and msg.content_.caption_ then redis:hset(boss..':caption_replay:'..msg.chat_id_,klma,msg.content_.caption_) end
+if redis:get(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_) and redis:get(lhb..'replay1'..msg.chat_id_..msg.sender_user_id_) then
+local klma = redis:get(lhb..'replay1'..msg.chat_id_..msg.sender_user_id_)
+if msg.content_ and msg.content_.caption_ then redis:hset(lhb..':caption_replay:'..msg.chat_id_,klma,msg.content_.caption_) end
 if msg.text then 
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 if utf8.len(msg.text) > 4000 then 
 return sendMsg(msg.chat_id_,msg.id_,"📛¦ عذرا غير مسموح باضافه جواب الرد باكثر من 4000 حرف تم الغاء الامر\n❕")
 end
-redis:hset(boss..'replay:'..msg.chat_id_,klma,msg.text)
+redis:hset(lhb..'replay:'..msg.chat_id_,klma,msg.text)
 return sendMsg(msg.chat_id_,msg.id_,'(['..klma..'])\n  ✓ تم اضافت الرد 🚀 \n-')
 elseif msg.content_.ID == "MessagePhoto" then
 if msg.content_.photo_.sizes_[3] then 
@@ -3054,28 +3054,28 @@ photo_id = msg.content_.photo_.sizes_[3].photo_.persistent_id_
 else 
 photo_id = msg.content_.photo_.sizes_[0].photo_.persistent_id_
 end
-redis:hset(boss..'replay_photo:group:'..msg.chat_id_,klma,photo_id)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_photo:group:'..msg.chat_id_,klma,photo_id)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه صوره للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوره الاتيه .')
 elseif msg.content_.ID == "MessageVoice" then
-redis:hset(boss..'replay_voice:group:'..msg.chat_id_,klma,msg.content_.voice_.voice_.persistent_id_)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_voice:group:'..msg.chat_id_,klma,msg.content_.voice_.voice_.persistent_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه بصمه صوت للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لسماع البصمه الاتيه .')
 elseif msg.content_.ID == "MessageAnimation" then
-redis:hset(boss..'replay_animation:group:'..msg.chat_id_,klma,msg.content_.animation_.animation_.persistent_id_)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_animation:group:'..msg.chat_id_,klma,msg.content_.animation_.animation_.persistent_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه متحركه للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوره الاتيه .')
 elseif msg.content_.ID == "MessageVideo" then
-redis:hset(boss..'replay_video:group:'..msg.chat_id_,klma,msg.content_.video_.video_.persistent_id_)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_video:group:'..msg.chat_id_,klma,msg.content_.video_.video_.persistent_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه فيديو للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الفيديو الاتي .')
 elseif msg.content_.ID == "MessageAudio" then
-redis:hset(boss..'replay_audio:group:'..msg.chat_id_,klma,msg.content_.audio_.audio_.persistent_id_)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_audio:group:'..msg.chat_id_,klma,msg.content_.audio_.audio_.persistent_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه للصوت للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الصوت الاتي .')
 elseif msg.content_.ID == "MessageSticker" then
-redis:hset(boss..'replay_sticker:group:'..msg.chat_id_,klma,msg.content_.sticker_.sticker_.persistent_id_)
-redis:del(boss..'addrd:'..msg.chat_id_..msg.sender_user_id_)
+redis:hset(lhb..'replay_sticker:group:'..msg.chat_id_,klma,msg.content_.sticker_.sticker_.persistent_id_)
+redis:del(lhb..'addrd:'..msg.chat_id_..msg.sender_user_id_)
 return sendMsg(msg.chat_id_,msg.id_,'🗂¦ تم اضافه ملصق للرد بنجاح ✓\n🗂¦ يمكنك ارسال (['..klma..']) لاضهار الملصق الاتي .')
 end  
 
