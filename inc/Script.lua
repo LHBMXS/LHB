@@ -2844,38 +2844,38 @@ end
 ----=================================| كود الرد العشوائي المجموعات|===============================================
 if MsgText[1]=="اضف رد عشوائي" and msg.GroupActive then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(lhb..'addrdRandom1:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
-redis:del(lhb..'replay1Random'..msg.chat_id_..msg.sender_user_id_)
+redis:setex(lhb..'addrdRandom2:'..msg.chat_id_..msg.sender_user_id_,1400,true) 
+redis:del(lhb..'replay1Random1'..msg.chat_id_..msg.sender_user_id_)
 return "📭¦ حسننا ,  الان ارسل كلمه الرد للعشوائي \n-"
 end
 
 
 if MsgText[1]== "مسح رد عشوائي" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  \n" end
-redis:setex(lhb..':DelrdRandom:'..msg.chat_id_..msg.sender_user_id_,300,true)
+redis:setex(lhb..':DelrdRandom1:'..msg.chat_id_..msg.sender_user_id_,300,true)
 return "📭¦ حسننا عزيزي  ✋🏿\n🗯¦ الان ارسل الرد العشوائي لمسحها 🍃"
 end
 
 
 if MsgText[1] == "مسح الردود العشوائيه" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
+local AlRdod = redis:smembers(lhb..':KlmatRRandom1:'..msg.chat_id_) 
 if #AlRdod == 0 then return "🛑*¦* الردود العشوائيه محذوفه بالفعل\n✓" end
-for k,v in pairs(AlRdod) do redis:del(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) redis:del(lhb..':caption_replay:Random:'..msg.chat_id_..v) 
+for k,v in pairs(AlRdod) do redis:del(lhb..':ReplayRandom1:'..msg.chat_id_..":"..v) redis:del(lhb..':caption_replay:Random:'..msg.chat_id_..v) 
 end
-redis:del(lhb..':KlmatRRandom:'..msg.chat_id_) 
+redis:del(lhb..':KlmatRRandom1:'..msg.chat_id_) 
 return "🙋🏼‍♂️*¦* أهلا عزيزي "..msg.TheRankCmd.."  \n🛑*¦* تم مسح جميع الردود العشوائيه\n✓"
 end
 
 if MsgText[1] == "الردود العشوائيه" then
 if not msg.Director then return "📪¦ هذا الامر يخص {المطور,المنشئ,المدير} فقط  " end
 message = "📜| الردود العشـوائيه :\n\n"
-local AlRdod = redis:smembers(lhb..':KlmatRRandom:'..msg.chat_id_) 
+local AlRdod = redis:smembers(lhb..':KlmatRRandom1:'..msg.chat_id_) 
 if #AlRdod == 0 then 
 message = message .."📛| لا توجد ردود عشوائيه مضافه !\n"
 else
 for k,v in pairs(AlRdod) do
-local incrr = redis:scard(lhb..':ReplayRandom:'..msg.chat_id_..":"..v) 
+local incrr = redis:scard(lhb..':ReplayRandom1:'..msg.chat_id_..":"..v) 
 message = message..k..'- ['..v..'] ⋙ •⊱ {*'..incrr..'*} ⊰• رد\n'
 end
 end
@@ -2885,9 +2885,9 @@ end
 function CaptionInsert(msg,input,public)
 if msg.content_ and msg.content_.caption_ then 
 if public then
-redis:hset(lhb..':caption_replay:Random:'..msg.klma,input,msg.content_.caption_) 
+redis:hset(lhb..':caption_replay:Random1:'..msg.klma,input,msg.content_.caption_) 
 else
-redis:hset(lhb..':caption_replay:Random:'..msg.chat_id_..msg.klma,input,msg.content_.caption_) 
+redis:hset(lhb..':caption_replay:Random1:'..msg.chat_id_..msg.klma,input,msg.content_.caption_) 
 end
 end
 end
@@ -2904,7 +2904,7 @@ redis:del(lhb..'replay1RandomPublic'..msg.chat_id_..msg.sender_user_id_)
 return false
 end
 
-local CountRdod = redis:scard(lhb..':ReplayRandom:'..klma) or 1
+local CountRdod = redis:scard(lhb..':ReplayRandom1:'..klma) or 1
 local CountRdod2 = 10 - tonumber(CountRdod)
 local CountRdod = 9 - tonumber(CountRdod)
 if CountRdod2 == 0 then 
