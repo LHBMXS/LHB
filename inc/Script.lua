@@ -2185,10 +2185,13 @@ return [[
 ⚜│سورس » سورس البوت
 💯╽المطور » مطور البوت
 ●ـ▬ـ▬ـ▬ஜ۩۞۩ஜ▬ـ▬ـ▬ـ●
- ‏‎‏💭│رآسـلني للآسـتفسـآر ☜ { ]]..SUDO_USER..[[ } ✓ ]]
- local inline = {{{text="مـطـور الـبـوت ✓",url="t.me/"..xsudouser}}}
+]]
+ xsudouser = SUDO_USER:gsub('@','')
+xsudouser = xsudouser:gsub([[\_]],'_')
+local inline = {{{text="مـطـور الـبـوت ✓",url="t.me/"..xsudouser}}}
 send_key(msg.sender_user_id_,text,nil,inline,msg.id_)
 return false
+end
 end
 if MsgText[1]== 'م1' then
 if not msg.Admin then return "🔷*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
