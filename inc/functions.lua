@@ -4,9 +4,9 @@
 ─██▒█████████─
 ──▀████████▀──│@AST0RH
 ─────▀██▀─────
-│LHB ‿ @LSLHB
-تم تطوير وبرمجة السورس من قبل حسن العراقي
-│@ASTORHBOTS‿ @LSLHB
+│LHB ‿ @AST0RH
+تم تطوير وبرمجة السورس من قبل محمد اليافعي
+│@ASTORHBOTS ‿ @AST0RH
 #-------------------------------------------------------------------
 ]]
 
@@ -1923,6 +1923,24 @@ USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or ""),20)
 end
 USERCAR = utf8.len(USERNAME)
 
+if cmd == "upMshrf" then
+redis:hset(lhb..'username:'..UserID,'username',Resolv)
+redis:setex(lhb..":uploadingsomeon:"..ChatID..msg.sender_user_id_,500,NameUser)
+redis:setex(lhb..":uploadingsomeon2:"..ChatID..msg.sender_user_id_,500,UserID)
+sendMsg(ChatID,MsgID,"📇|  » حسننا الان ارسل صلاحيات المشرف :\n\n|1- صلاحيه تغيير المعلومات\n|2- صلاحيه حذف الرسائل\n|3- صلاحيه دعوه مستخدمين\n|4- صلاحيه حظر وتقيد المستخدمين \n|5- صلاحيه تثبيت الرسائل \n|6- صلاحيه رفع مشرفين اخرين\n\n|[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n|[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸| يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n| 136 الزعيم\n📬") 
+return false
+end
+
+if cmd == "DwonMshrf" then
+ResAdmin = UploadAdmin(ChatID,UserID,"")  
+if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then return sendMsg(ChatID,MsgID,"👤*¦*لا يمكنني تنزيله لانه مرفوع من قبل منشئ اخر \n📛")  end
+redis:srem(lhb..':MONSHA_BOT:'..ChatID,UserID)
+redis:srem(lhb..'owners:'..ChatID,UserID)
+redis:srem(lhb..'admins:'..ChatID,UserID)
+redis:srem(lhb..'whitelist:'..ChatID,UserID)
+sendMsg(ChatID,MsgID,"📮¦ المستخدم  ⋙「 "..NameUser.." 」 \n📋¦ تم تنزيله من مشرفين المجموعه \n✓")
+return false
+end
 
 if cmd == "tqeed" then
 if UserID == our_id then   
@@ -2129,24 +2147,6 @@ end
 redis:hset(lhb..'username:'..UserID, 'username', Resolv)
 redis:srem(lhb..'is_silent_users:'..ChatID,UserID)
 return SendMention(ChatID,UserID,MsgID,'🙍🏻‍♂╿العضو » ❪ '..USERNAME..' ❫\n🎫│الايدي » ❪ '..UserID..' ❫\n💯╽تم الغاء كتمه \n✓️',17,USERCAR) 
-end
-if cmd == "upMshrf" then
-redis:hset(lhb..'username:'..UserID,'username',Resolv)
-redis:setex(lhb..":uploadingsomeon:"..ChatID..msg.sender_user_id_,500,NameUser)
-redis:setex(lhb..":uploadingsomeon2:"..ChatID..msg.sender_user_id_,500,UserID)
-sendMsg(ChatID,MsgID,"📇|  » حسننا الان ارسل صلاحيات المشرف :\n\n|1- صلاحيه تغيير المعلومات\n|2- صلاحيه حذف الرسائل\n|3- صلاحيه دعوه مستخدمين\n|4- صلاحيه حظر وتقيد المستخدمين \n|5- صلاحيه تثبيت الرسائل \n|6- صلاحيه رفع مشرفين اخرين\n\n|[*]- لرفع كل الصلاحيات ما عدا رفع المشرفين \n|[**] - لرفع كل الصلاحيات مع رفع المشرفين \n\n🚸| يمكنك اختيار الارقام معا وتعيين الكنيه للمشرف في ان واحد مثلا : \n\n| 136 الزعيم\n📬") 
-return false
-end
-
-if cmd == "DwonMshrf" then
-ResAdmin = UploadAdmin(ChatID,UserID,"")  
-if ResAdmin == '{"ok":false,"error_code":400,"description":"Bad Request: CHAT_ADMIN_REQUIRED"}' then return sendMsg(ChatID,MsgID,"👤*¦*لا يمكنني تنزيله لانه مرفوع من قبل منشئ اخر \n📛")  end
-redis:srem(lhb..':MONSHA_BOT:'..ChatID,UserID)
-redis:srem(lhb..'owners:'..ChatID,UserID)
-redis:srem(lhb..'admins:'..ChatID,UserID)
-redis:srem(lhb..'whitelist:'..ChatID,UserID)
-sendMsg(ChatID,MsgID,"📮¦ المستخدم  ⋙「 "..NameUser.." 」 \n📋¦ تم تنزيله من مشرفين المجموعه \n✓")
-return false
 end
 
 if cmd == "bandall" then
