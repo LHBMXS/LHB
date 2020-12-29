@@ -2185,18 +2185,13 @@ return [[
 ⚜│سورس » سورس البوت
 💯╽المطور » مطور البوت
 ●ـ▬ـ▬ـ▬ஜ۩۞۩ஜ▬ـ▬ـ▬ـ●
- ‏‎‏💭│رآسـلني للآسـتفسـآر ☜ { ]]..SUDO_USER..[[ } ✓
-keyboard = {} 
-keyboard.inline_keyboard = {
-{{text = '⓵',callback_data'=>'م1'}},
-{{text = '⓶', url=getmo.Web},{text = 'مشاهده الفلم بجوده 1080', url=getmo.hd}},
-}
-local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendMessage?chat_id=' .. msg.chat_id_ .. '&text=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.encode(keyboard))
-end
-end
-end
- ]]
+ ‏‎‏💭│رآسـلني للآسـتفسـآر ☜ { ]]..SUDO_USER..[[ }
+'parse_mode'=>"MarkDown",
+'disable_web_page_preview'=>true,
+'reply_markup'=>json_encode([
+'reply_markup'=>json_encode([
+[['text'= '⓵',callback_data'=>'م1']],
+[['text'= '⓶', url=getmo.Web],[text = '⓷', url=getmo.hd]],])]);}
 end
 if MsgText[1]== 'م1' then
 if not msg.Admin then return "♦️*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
@@ -3646,7 +3641,7 @@ GetUserID(msg.sender_user_id_,function(arg,data)
 local msgx = "♦️╿ممنوع ارسال روابط الويب   \n📛"
 if data.username_ then USERNAME = '@'..data.username_ else USERNAME = FlterName(data.first_name_..' '..(data.last_name_ or "")) end
 local USERCAR = utf8.len(USERNAME)
-SendMention(msg.chat_id_,data.id_,msg.id_,"??🏻‍♂╽العضو » "..USERNAME..'\n'..msgx,12,USERCAR) end,nil)
+SendMention(msg.chat_id_,data.id_,msg.id_,"🙍🏻‍♂╽العضو » "..USERNAME..'\n'..msgx,12,USERCAR) end,nil)
 end
 end)
 return false
