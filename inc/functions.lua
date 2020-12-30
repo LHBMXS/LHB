@@ -593,26 +593,27 @@ end
 function Getrtba(UserID,ChatID)
 if UserID == our_id then 
 var = 'هذا البوت 🙄☝🏿' 
+elseif UserID == 879123322 or UserID == 879123322  then 
+var = 'مطور السورس'
 elseif  UserID == SUDO_ID then
-var = 'مطور اساسي 👨🏻‍✈️' 
+var = redis:get(lhb..":RtbaNew1:"..ChatID) or 'مطور اساسي 👨🏻‍✈️' 
 elseif redis:sismember(lhb..':SUDO_BOT:',UserID) then
-var = 'مطور البوت 👨🏽‍💻' 
-elseif redis:sismember(lhb..':KARA_BOT:'..ChatID,UserID) then
-var = ' المنشىء الاساسي👷🏽' 
+var = redis:get(lhb..":RtbaNew2:"..ChatID) or 'مطور البوت 👨🏽‍💻' 
+elseif redis:sismember(lhb..':MONSHA_Group:'..ChatID,UserID) then
+var = redis:get(lhb..":RtbaNew3:"..ChatID) or ' المنشىء اساسي👷🏽' 
 elseif redis:sismember(lhb..':MONSHA_BOT:'..ChatID,UserID) then
-var = ' المنشىء 👷🏽' 
+var = redis:get(lhb..":RtbaNew4:"..ChatID) or ' المنشىء 👷🏽' 
 elseif redis:sismember(lhb..'owners:'..ChatID,UserID) then
-var = 'مدير البوت 👨🏼‍⚕️' 
+var = redis:get(lhb..":RtbaNew5:"..ChatID) or 'مدير البوت 👨🏼‍⚕️' 
 elseif redis:sismember(lhb..'admins:'..ChatID,UserID) then
-var = 'ادمن في البوت 👨🏼‍🎓' 
+var = redis:get(lhb..":RtbaNew6:"..ChatID) or 'ادمن في البوت 👨🏼‍🎓' 
 elseif redis:sismember(lhb..'whitelist:'..ChatID,UserID) then
-var = 'عضو مميز ⭐️' 
+var = redis:get(lhb..":RtbaNew7:"..ChatID) or 'عضو مميز ⭐️' 
 else
 var = 'فقط عضو 🙍🏼‍♂️' 
 end
 return var
 end
-
 
 function SaveNumMsg(msg)
 if msg.edited then
