@@ -1359,14 +1359,14 @@ if redis:get(lhb.."getidstatus"..msg.chat_id_) == "Photo" then
 		sendPhoto(msg.chat_id_,msg.id_,data.photos_[0].sizes_[1].photo_.persistent_id_,'🙋🏼‍♂️╿'..ssssys..'\n☄│ايديـك ❪ '..msg.sender_user_id_..' ❫\n🎫│معرفـك ❪ '..UserNameID..' ❫\n👮‍♀️│رتبتـك ❪ '..msg.TheRank..' ❫\n🎲│تفاعلك ❪ '..Get_Ttl(msgs)..' ❫\n💬│رسائلك ❪ '..msgs..' ❫\n🚸│سحكاتـك ❪ '..rfih..' ❫\n🐞╽نقاطك ❪ '..nko..' ❫\n💥',dl_cb,nil)
 		else
 		Text = redis:get("KLISH:ID")
-		Text = Text:gsub('ايديك',msg.sender_user_id_)
-		Text = Text:gsub('المعرف',UserNameID)
-		Text = Text:gsub('الرتب',msg.TheRank)
-		Text = Text:gsub('التفاعل',Get_Ttl(msgs))
-		Text = Text:gsub('الرسائل',msgs)
-		Text = Text:gsub('السحكات',rfih)
-		Text = Text:gsub('الجهات',NumGha)
-		Text = Text:gsub('النقاط',nko)
+		Text = Text:gsub('{الايدي}',msg.sender_user_id_)
+		Text = Text:gsub('{المعرف}',UserNameID)
+		Text = Text:gsub('{الرتبه}',msg.TheRank)
+		Text = Text:gsub('{التفاعل}',Get_Ttl(msgs))
+		Text = Text:gsub('{الرسائل}',msgs)
+		Text = Text:gsub('{التعديل}',rfih)
+		Text = Text:gsub('{الجهات}',NumGha)
+		Text = Text:gsub('{النقاط}',nko)
 		sendPhoto(msg.chat_id_,msg.id_,data.photos_[0].sizes_[1].photo_.persistent_id_,"🎇│"..ssssys.."\n"..Text.."",dl_cb,nil)
 		end
 	else
@@ -1374,28 +1374,28 @@ if redis:get(lhb.."getidstatus"..msg.chat_id_) == "Photo" then
 		sendMsg(msg.chat_id_,msg.id_,'📬│لا يمكنني عرض صورتك لانك قمت بحظر البوت او انك لاتملك صوره في بروفيلك ...!\n🎫╿معرفـك ['..UserNameID..']\n🎟│ايديـك ❪ '..msg.sender_user_id_..' ❫\n📡│رتبتـك ❪ '..msg.TheRank..' ❫\n🎲│تفاعلك ❪ '..Get_Ttl(msgs)..' ❫\n💬│رسائلك ❪ '..msgs..' ❫\n🚸│سحكاتـك ❪ '..rfih..' ❫\n📞│الـجـهـات ❪ '..NumGha..' ❫\n🐞╽نقاطك ❪ '..nko..' ❫\n')
 		else
 		Text = redis:get("KLISH:ID")
-		Text = Text:gsub('ايديك',msg.sender_user_id_)
-		Text = Text:gsub('المعرف',UserNameID)
-		Text = Text:gsub('الرتب',msg.TheRank)
-		Text = Text:gsub('التفاعل',Get_Ttl(msgs))
-		Text = Text:gsub('الرسائل',msgs)
-		Text = Text:gsub('السحكات',rfih)
-		Text = Text:gsub('الجهات',NumGha)
-		Text = Text:gsub('النقاط',nko)
+		Text = Text:gsub('{الايدي}',msg.sender_user_id_)
+		Text = Text:gsub('{المعرف}',UserNameID)
+		Text = Text:gsub('{الرتبه}',msg.TheRank)
+		Text = Text:gsub('{التفاعل}',Get_Ttl(msgs))
+		Text = Text:gsub('{الرسائل}',msgs)
+		Text = Text:gsub('{التعديل}',rfih)
+		Text = Text:gsub('{الجهات}',NumGha)
+		Text = Text:gsub('{النقاط}',nko)
 		sendMsg(msg.chat_id_,msg.id_,Flter_Markdown(Text))
 		end
 	end
 else
 	if redis:get("KLISH:ID") then
 		Text = redis:get("KLISH:ID")
-		Text = Text:gsub('ايديك',msg.sender_user_id_)
-		Text = Text:gsub('المعرف',UserNameID)
-		Text = Text:gsub('الرتب',msg.TheRank)
-		Text = Text:gsub('التفاعل',Get_Ttl(msgs))
-		Text = Text:gsub('الرسائل',msgs)
-		Text = Text:gsub('السحكات',rfih)
-		Text = Text:gsub('الجهات',NumGha)
-		Text = Text:gsub('النقاط',nko)
+		Text = Text:gsub('{الايدي}',msg.sender_user_id_)
+		Text = Text:gsub('{المعرف}',UserNameID)
+		Text = Text:gsub('{الرتبه}',msg.TheRank)
+		Text = Text:gsub('{التفاعل}',Get_Ttl(msgs))
+		Text = Text:gsub('{الرسائل}',msgs)
+		Text = Text:gsub('{التعديل}',rfih)
+		Text = Text:gsub('{الجهات}',NumGha)
+		Text = Text:gsub('{النقاط}',nko)
 		sendMsg(msg.chat_id_,msg.id_,Flter_Markdown(Text))
 		else
 		sendMsg(msg.chat_id_,msg.id_,'📬│الايدي بالصوره معطل \n🎫╿معرفـك ['..UserNameID..']\n🎟│ايديـك ❪ '..msg.sender_user_id_..' ❫\n📡│رتبتـك ❪ '..msg.TheRank..' ❫\n🎲│تفاعلك ❪ '..Get_Ttl(msgs)..' ❫\n💬│رسائلك ❪ '..msgs..' ❫\n🚸│سحكاتـك ❪ '..rfih..' ❫\n📞│الـجـهـات ❪ '..NumGha..' ❫\n🐞╽نقاطك ❪ '..nko..' ❫\n')
@@ -3062,18 +3062,17 @@ if msg.Creator then
 if Text == "تعيين الايدي" and msg.SudoUser then
 redis:setex("CHENG:ID"..msg.chat_id_..""..msg.sender_user_id_,200,true)  
 local hasnid= [[
-*🚸¦ اهلابك عزيزي  
-🎫¦تستطيع الان تغير كليشه الايدي 📣
----------------------
- •  الايدي •* `ايديك`
-*• رتبتي • * `الرتب`
-*• المعرف • * `المعرف`
-*• رسائلك • * `الرسائل`
-*•سحكاتك • * `السحكات`
-*• تفاعلك • * `التفاعل`
-*• جهاتك • * `الجهات`
-*•مجوهراتك • * `النقاط`
-
+📮¦ حسننا , الان ارسل كليشه الايدي الجديده 
+\n علما ان الاختصارات كالاتي : 
+\n{الايدي} : لوضع ايدي المستخدم
+\n{المعرف} : لوضع معرف المستخدم
+\n{الرتبه} : لوضع نوع رتبه المستخدم
+\n{التفاعل} : لوضع تفاعل المستخدم
+\n{الرسائل} : لاضهار عدد الرسائل
+\n{النقاط} : لاضهار عدد النقاط
+\n{التعديل} : لاضهار عدد السحكات
+\n قناه تعليمات ونشر كلايش الايدي
+\n قناه الكلايش : [@ksax4] \n➼
 ]]
 return sendMsg(msg.chat_id_,msg.id_,hasnid) 
 end
