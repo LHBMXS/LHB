@@ -615,6 +615,32 @@ end
 return var
 end
 
+function convert_Klmat(msg,data,Replay,MD)
+local edited = (redis:get(lhb..':edited:'..msg.chat_id_..':'..msg.sender_user_id_) or 0)
+local points = redis:get(lhb..':User_Points:'..msg.chat_id_..msg.sender_user_id_) or 0
+local NameUser = ResolveName(data)
+local Emsgs = redis:get(lhb..'msgs:'..msg.sender_user_id_..':'..msg.chat_id_) or 1
+if data.username_ then UserNameID = "@"..data.username_ else UserNameID = "لا يوجد" end  
+if Replay then
+Replay = Replay:gsub("{الايدي}",msg.sender_user_id_)
+Replay = Replay:gsub("{المعرف}",UserNameID)
+Replay = Replay:gsub("{الرتبه}",msg.TheRank)
+Replay = Replay:gsub("{التفاعل}",Get_Ttl(Emsgs))
+Replay = Replay:gsub("{الرسائل}",Emsgs)
+Replay = Replay:gsub("{التعديل}",edited)
+Replay = Replay:gsub("{النقاط}",points)
+Replay = Replay:gsub("{البوت}",redis:get(lhb..':NameBot:'))
+Replay = Replay:gsub("{المطور}",SUDO_USER)
+else
+Replay =""
+end
+if MD then
+return Replay
+else
+return Replay
+end
+end
+
 function SaveNumMsg(msg)
 if msg.edited then
 redis:incr(lhb..':edited:'..msg.chat_id_..':'..msg.sender_user_id_)
