@@ -2251,25 +2251,9 @@ return [[
 ⚜│سورس » سورس البوت
 💯╽المطور » مطور البوت
 ●ـ▬ـ▬ـ▬ஜ۩۞۩ஜ▬ـ▬ـ▬ـ●
- ‏‎‏💭│رآسـلني للآسـتفسـآر ☜ { ]]..SUDO_USER..[[ } ✓
-]]
-keyboard = {} 
-keyboard.inline_keyboard = {
-{
-{text = '⓵', callback_data="/help1"},{text = '⓶', callback_data="/help2"},{text = '⓷', callback_data="/help3"},
-},
-{
-{text = '⓸', callback_data="/help4"},
-},
-{
-{text = 'اوامر التعطيل', callback_data="/homeaddrem"},{text = 'اوامر القفل', callback_data="/homelocks"},
-},
-}
-local msg_id = msg.id_/2097152/0.5
-https.request("https://api.telegram.org/bot"..token..'/sendMessage?chat_id=' .. msg.chat_id_ .. '&text=' .. URL.escape(Text).."&reply_to_message_id="..msg_id.."&parse_mode=markdown&disable_web_page_preview=true&reply_markup="..JSON.decode(keyboard))
+ ‏‎‏💭│رآسـلني للآسـتفسـآر ☜ { ]]..SUDO_USER..[[ } ✓ ]]
 end
-end
-if MsgText[1]== 'help1' then
+if MsgText[1]== 'م1' then
 if not msg.Admin then return "🔷*│*هذا الامر يخص {الادمن,المدير,المنشئ,المطور} فقط  \n💥" end
 local text =[[
 ¹↫❬آوآمر الرفع والتنزيل❭
